@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Godot;
 
@@ -18,16 +17,19 @@ public class Meow : Label
   #region Hooks
   public override void _Ready()
   {
+    base._Ready();
     Hide();
+    Global.Instance.Pet.Connect(nameof(Pet.Shouting), this, nameof(OnPetShouting));
   }
   public override void _Process(float delta)
   {
     base._Process(delta);
     if (_origin == null) return;
 
-    var showVPos = _origin.GetViewportTransform() * _origin.GlobalPosition + Vector2.Up * Margin;
     var vp = GetViewportRect();
     var center = vp.Size / 2;
+    var showVPos = _origin.GetViewportTransform() * _origin.GlobalPosition;
+    showVPos += (center - showVPos).Normalized() * vp.Size.x * .1f;
     showVPos.x = Mathf.Clamp(showVPos.x, 0, vp.Size.x - Margin);
     showVPos.y = Mathf.Clamp(showVPos.y, 0, vp.Size.y - Margin);
     RectGlobalPosition = showVPos;
@@ -43,6 +45,11 @@ public class Meow : Label
     await Task.Delay(1000);
     Hide();
   }
+  public void OnPetShouting(Pet pet)
+  {
+    Pop(pet);
+  }
+
 
   private void UpdateRotation(Vector2 pos, Vector2 center)
   {

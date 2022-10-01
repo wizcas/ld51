@@ -24,8 +24,8 @@ public class CameraShake : Camera2D
 
     _freqTimer.Connect("timeout", this, nameof(OnFreqTimeOut));
     _durationTimer.Connect("timeout", this, nameof(OnDurationTimeOut));
+    Global.Instance.Pet.Connect(nameof(Pet.Shouting), this, nameof(OnPetShouting));
   }
-  #endregion
 
   #region Methods
   public void StartShaking(float duration = .5f, float frequency = 30f, float amplitude = 2f, int priority = 0)
@@ -64,5 +64,11 @@ public class CameraShake : Camera2D
   {
     NewShake();
   }
+
+  public void OnPetShouting(Pet pet)
+  {
+    StartShaking();
+  }
+  #endregion
   #endregion
 }

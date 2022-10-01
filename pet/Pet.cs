@@ -6,6 +6,7 @@ using Godot;
 public class Pet : Creature
 {
   #region Fields and Properties
+  [Signal] public delegate void Shouting(Pet pet);
   [Export] NodePath WanderingAreaNode;
 
   public NeedSystem Needs { get; private set; }
@@ -13,6 +14,11 @@ public class Pet : Creature
   #endregion
 
   #region Hooks
+  public override void _EnterTree()
+  {
+    base._EnterTree();
+    Global.Instance.Pet = this;
+  }
   public override void _Ready()
   {
     base._Ready();
@@ -75,10 +81,8 @@ public class Pet : Creature
   {
     _isBusy = true;
     Stop();
-    var duration = .2f;
-    Global.Instance.Camera.StartShaking(duration);
-    Global.Instance.Meow.Pop(this);
-    await Task.Delay(TimeSpan.FromMilliseconds(duration * 1000));
+    EmitSignal(nameof(Shouting), this);
+    await Task.Delay(TimeSpan.FromMilliseconds(.5f * 1000));
     _isBusy = false;
   }
   #endregion

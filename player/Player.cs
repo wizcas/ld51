@@ -1,23 +1,30 @@
-using System;
 using System.Threading.Tasks;
 using Godot;
 
 public class Player : Creature
 {
   #region Nested
+  public enum Action
+  {
+    Normal,
+    Working,
+    Sleeping,
+  }
   #endregion
 
   #region Signals
   #endregion
 
   #region Fields & Properties
+  public Action CurrentAction;
   private POI _poi;
   #endregion
 
   #region Hooks
-  public override void _Ready()
+
+  public override void _EnterTree()
   {
-    base._Ready();
+    base._EnterTree();
     Global.Instance.Player = this;
   }
 
