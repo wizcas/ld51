@@ -10,9 +10,6 @@ public class ArrowMarker : Node2D
   #endregion
 
   #region Fields & Properties
-  public static ArrowMarker Instance =>
-    ((SceneTree)Engine.GetMainLoop()).Root.GetNode<ArrowMarker>("ArrowMarker");
-
   private AnimationPlayer _anim;
 
   #endregion

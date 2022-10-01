@@ -16,7 +16,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-ArrowMarker="*res://global/ArrowMarker.tscn"
+Global="*res://global/Global.tscn"
 
 [gui]
 

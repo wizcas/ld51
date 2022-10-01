@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/poc-world.png" type="Texture" id=1]
 [ext_resource path="res://assets/poc-man.png" type="Texture" id=2]
 [ext_resource path="res://Player.cs" type="Script" id=3]
+[ext_resource path="res://POI.cs" type="Script" id=4]
 
 [sub_resource type="NavigationPolygon" id=6]
 vertices = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -127,6 +128,9 @@ region = Rect2( 32, 0, 16, 16 )
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 8, 4 )
 
+[sub_resource type="CircleShape2D" id=11]
+radius = 13.0384
+
 [node name="World" type="Node2D"]
 
 [node name="ground" type="TileMap" parent="."]
@@ -172,15 +176,23 @@ path_desired_distance = 16.0
 target_desired_distance = 16.0
 path_max_distance = 16.0
 
-[node name="StaticBody2D" type="StaticBody2D" parent="walls"]
+[node name="LitterBox" type="StaticBody2D" parent="walls"]
 position = Vector2( 235, 70 )
+input_pickable = true
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Sprite" type="Sprite" parent="walls/StaticBody2D"]
+[node name="Sprite" type="Sprite" parent="walls/LitterBox"]
 texture = SubResource( 9 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/LitterBox"]
 position = Vector2( 0, 4 )
 shape = SubResource( 10 )
+
+[node name="InteractArea" type="Area2D" parent="walls/LitterBox"]
+position = Vector2( 0, 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/LitterBox/InteractArea"]
+shape = SubResource( 11 )

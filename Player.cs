@@ -14,38 +14,42 @@ public class Player : KinematicBody2D
   private NavigationAgent2D _navAgent;
   private Vector2 _velocity;
   private bool _isNavigating;
+  private POI _poi;
   #endregion
 
   #region Hooks
   public override void _Ready()
   {
     _navAgent = GetNode<NavigationAgent2D>("NavAgent");
+    Global.Instance.Player = this;
   }
 
-  public override void _UnhandledInput(InputEvent @event)
+  public override void _UnhandledInput(InputEvent e)
   {
-    if (@event is InputEventMouseButton mouseEvent)
+    if (e is InputEventMouseButton mouseEvent)
     {
-      if (mouseEvent.ButtonIndex == (int)ButtonList.Left)
+      if (mouseEvent.IsPressed() && mouseEvent.ButtonIndex == (int)ButtonList.Left)
       {
         var _target = GetGlobalMousePosition();
         _navAgent.SetTargetLocation(_target);
         _isNavigating = true;
+        Global.Instance.Arrow.ShowAt(_navAgent.GetFinalLocation());
         if (!_navAgent.IsTargetReachable())
         {
           GD.PrintErr("target not reachable: ", _target);
-          _isNavigating = false;
+          Stop();
         }
       }
     }
 
-    if (_isNavigating)
+  }
+
+  public override void _Process(float delta)
+  {
+    base._Process(delta);
+    if (!_isNavigating)
     {
-      ArrowMarker.Instance.ShowAt(_navAgent.GetFinalLocation());
-    }
-    else
-    {
-      ArrowMarker.Instance.Hide();
+      Global.Instance.Arrow.Hide();
     }
   }
 
@@ -60,12 +64,11 @@ public class Player : KinematicBody2D
 
     if (!_navAgent.IsTargetReachable())
     {
-      _isNavigating = false;
-      return;
+      Stop();
     }
-    if (_navAgent.IsTargetReached())
+    else if (_navAgent.IsTargetReached())
     {
-      _isNavigating = false;
+      Stop();
     }
     else
     {
@@ -78,5 +81,23 @@ public class Player : KinematicBody2D
   #endregion
 
   #region Methods
+
+  public void SetTargetPOI(POI poi)
+  {
+    _navAgent.SetTargetLocation(poi.GlobalPosition);
+    _poi = poi;
+    _isNavigating = true;
+  }
+
+  public void Stop()
+  {
+    _isNavigating = false;
+  }
+
+  public void Interact(POI poi)
+  {
+    Stop();
+    GD.Print("interacting POI: ", poi.Name);
+  }
   #endregion
 }
