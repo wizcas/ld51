@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/poc-man.png" type="Texture" id=1]
 [ext_resource path="res://Player.cs" type="Script" id=2]
+[ext_resource path="res://global/CameraShake.cs" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=7]
 radius = 4.12311
@@ -23,6 +24,13 @@ texture = ExtResource( 1 )
 position = Vector2( 0, -5 )
 current = true
 zoom = Vector2( 0.25, 0.25 )
+script = ExtResource( 3 )
+
+[node name="ShakeTween" type="Tween" parent="Camera2D"]
+
+[node name="Frequency" type="Timer" parent="Camera2D"]
+
+[node name="Duration" type="Timer" parent="Camera2D"]
 
 [node name="MoveCollision" type="CollisionShape2D" parent="."]
 shape = SubResource( 7 )

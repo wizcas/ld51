@@ -1,14 +1,18 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 
 public class Pet : Creature
 {
+  #region Fields and Properties
   [Export] NodePath WanderingAreaNode;
 
   public NeedSystem Needs { get; private set; }
   private WanderingArea _wanderingArea;
+  #endregion
 
+  #region Hooks
   public override void _Ready()
   {
     base._Ready();
@@ -31,7 +35,9 @@ public class Pet : Creature
       }
     }
   }
+  #endregion
 
+  #region Methods
   public void GoForNeed(NeedData need)
   {
     var nodes = GetTree().GetNodesInGroup("pet-needs");
@@ -65,4 +71,15 @@ public class Pet : Creature
     CancelForceMove();
     _isBusy = false;
   }
+  public async void Shout()
+  {
+    _isBusy = true;
+    Stop();
+    var duration = .2f;
+    Global.Instance.Camera.StartShaking(duration);
+    Global.Instance.Meow.Pop(this);
+    await Task.Delay(TimeSpan.FromMilliseconds(duration * 1000));
+    _isBusy = false;
+  }
+  #endregion
 }

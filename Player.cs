@@ -53,12 +53,12 @@ public class Player : Creature
     SetNavTarget(poi.GetDestination(this));
   }
 
-
   public async override Task Interact(POI poi)
   {
     Stop();
     ForceMoveTo(poi.GetDestination(this));
     await Task.CompletedTask;
   }
+
   #endregion
 }
