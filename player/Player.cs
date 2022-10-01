@@ -18,6 +18,7 @@ public class Player : Creature
   #region Fields & Properties
   public Action CurrentAction;
   private POI _poi;
+  public SanitySystem Sanity { get; private set; }
   #endregion
 
   #region Hooks
@@ -26,6 +27,12 @@ public class Player : Creature
   {
     base._EnterTree();
     Global.Instance.Player = this;
+  }
+
+  public override void _Ready()
+  {
+    base._Ready();
+    Sanity = GetNode<SanitySystem>("SanitySystem");
   }
 
   public override void _UnhandledInput(InputEvent e)

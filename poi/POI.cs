@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 
@@ -12,6 +13,8 @@ public class POI : Node2D
 
   #region Fields & Properties
   [Export] public float WorkTime = 2;
+  [Export] public bool IsForPlayer = true;
+  [Export] public bool IsForPet = true;
   protected Node2D _petAttach;
   protected Node2D _slaveAttach;
   #endregion
@@ -21,6 +24,7 @@ public class POI : Node2D
   {
     /* Connect("input_event", this,nameof(OnInputEvent)); */
     this.Connect("body_entered", this, nameof(OnBodyEntered));
+    this.Connect("body_exited", this, nameof(OnBodyExited));
     _petAttach = GetNodeOrNull<Node2D>("PetAttach");
     _slaveAttach = GetNodeOrNull<Node2D>("SlaveAttach");
   }
@@ -61,23 +65,38 @@ public class POI : Node2D
   {
     if (body is Creature creature)
     {
-      var tasks = new Task[]{
-        Work(creature),
-        null
-      };
-      if (body is Player player)
+      var tasks = new List<Task>();
+      if (body is Player player && IsForPlayer)
       {
-        tasks[1] = player.Interact(this);
+        tasks.Add(Enter(creature));
+        tasks.Add(player.Interact(this));
       }
-      else if (body is Pet pet)
+      else if (body is Pet pet && IsForPet)
       {
-        tasks[1] = pet.Interact(this);
+        tasks.Add(Enter(creature));
+        tasks.Add(pet.Interact(this));
       }
       await Task.WhenAll(tasks);
     }
   }
 
-  protected virtual Task Work(Creature worker) { return Task.CompletedTask; }
+  private void OnBodyExited(Node body)
+  {
+    if (body is Creature creature)
+    {
+      if (body is Player player && IsForPlayer)
+      {
+        Leave(creature);
+      }
+      else if (body is Pet pet && IsForPet)
+      {
+        Leave(creature);
+      }
+    }
+  }
+
+  protected virtual Task Enter(Creature worker) { return Task.CompletedTask; }
+  protected virtual void Leave(Creature worker) { }
 
   #endregion
 }

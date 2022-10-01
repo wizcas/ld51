@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Godot;
 
-public class Meow : Label
+public class Meow : Control
 {
   #region Nested
   [Export] public float Margin = 16f;
