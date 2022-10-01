@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/poc-world.png" type="Texture" id=1]
 [ext_resource path="res://assets/poc-man.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://pet/NeedSystem.cs" type="Script" id=6]
 [ext_resource path="res://pet/Pet.cs" type="Script" id=7]
 [ext_resource path="res://gui/HUD.cs" type="Script" id=8]
+[ext_resource path="res://WanderingArea.cs" type="Script" id=9]
 
 [sub_resource type="NavigationPolygon" id=6]
 vertices = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -205,9 +206,9 @@ zoom = Vector2( 0.25, 0.25 )
 shape = SubResource( 7 )
 
 [node name="NavAgent" type="NavigationAgent2D" parent="walls/Player"]
-path_desired_distance = 16.0
-target_desired_distance = 16.0
-path_max_distance = 16.0
+path_desired_distance = 8.0
+target_desired_distance = 8.0
+path_max_distance = 64.0
 
 [node name="LitterBox" type="StaticBody2D" parent="walls" groups=["pet-needs"]]
 position = Vector2( 235, 70 )
@@ -232,11 +233,12 @@ position = Vector2( 0, 5 )
 shape = SubResource( 11 )
 
 [node name="Twiz" type="KinematicBody2D" parent="walls"]
-position = Vector2( 145, 63 )
+position = Vector2( 152, 119 )
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_group_": true
 }
+WanderingAreaNode = NodePath("../WanderingArea")
 
 [node name="Sprite" type="Sprite" parent="walls/Twiz"]
 texture = ExtResource( 5 )
@@ -250,5 +252,15 @@ shape = SubResource( 12 )
 script = ExtResource( 6 )
 
 [node name="NavAgent" type="NavigationAgent2D" parent="walls/Twiz"]
-path_desired_distance = 16.0
-target_desired_distance = 16.0
+path_desired_distance = 8.0
+target_desired_distance = 8.0
+
+[node name="WanderingArea" type="Polygon2D" parent="walls"]
+position = Vector2( 0, -52.5974 )
+scale = Vector2( 1, 1.35065 )
+color = Color( 0.905882, 0.572549, 0.219608, 0.745098 )
+polygon = PoolVector2Array( 104, 73, 183, 73, 183, 150, 104, 150 )
+script = ExtResource( 9 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 183, 73 )

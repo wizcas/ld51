@@ -90,7 +90,7 @@ public class NeedSystem : Node
     var mostWanted = _needs.OrderByDescending(n => n.Value).Where(n => n.Value >= MIN_NEED_VALUE).ToArray();
     if (mostWanted.Length > 0)
     {
-      var rnd = (int)GD.RandRange(0, mostWanted.Length);
+      var rnd = (int)(GD.Randf() * mostWanted.Length);
       _pet.Go(mostWanted[rnd]);
     }
     else

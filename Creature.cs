@@ -50,7 +50,10 @@ public abstract class Creature : KinematicBody2D
   {
     _navAgent.SetTargetLocation(gPos);
     _isNavigating = true;
-    Global.Instance.Arrow.ShowAt(_navAgent.GetFinalLocation());
+    if (this is Player)
+    {
+      Global.Instance.Arrow.ShowAt(_navAgent.GetFinalLocation());
+    }
     if (!_navAgent.IsTargetReachable())
     {
       GD.PrintErr("target not reachable: ", gPos);

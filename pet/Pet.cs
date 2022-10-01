@@ -4,6 +4,33 @@ using Godot;
 
 public class Pet : Creature
 {
+  [Export] NodePath WanderingAreaNode;
+
+  private WanderingArea _wanderingArea;
+
+  public override void _Ready()
+  {
+    base._Ready();
+    if (!WanderingAreaNode.IsEmpty())
+    {
+      _wanderingArea = GetNode<WanderingArea>(WanderingAreaNode);
+    }
+  }
+
+  public override void _Process(float delta)
+  {
+    base._Process(delta);
+    if (_wanderingArea != null && !_isNavigating)
+    {
+      var location = _wanderingArea.GetRandomLocation();
+      if (location.HasValue)
+      {
+        GD.Print("wondering to: ", location.Value);
+        SetDestination(location.Value);
+      }
+    }
+  }
+
   public void Go(NeedData need)
   {
     var nodes = GetTree().GetNodesInGroup("pet-needs");
@@ -22,7 +49,7 @@ public class Pet : Creature
     }
     else
     {
-      var rnd = (int)GD.Randf() * candidates.Count;
+      var rnd = (int)(GD.Randf() * candidates.Count);
       var poi = candidates[rnd];
       GD.Print("[pet] is going to: ", poi.Name);
       SetDestination(poi.GlobalPosition);
