@@ -1,12 +1,12 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://assets/poc-world.png" type="Texture" id=1]
-[ext_resource path="res://assets/poc-man.png" type="Texture" id=2]
-[ext_resource path="res://Player.cs" type="Script" id=3]
-[ext_resource path="res://poi/PetNeedPOI.cs" type="Script" id=4]
-[ext_resource path="res://assets/twiz.png" type="Texture" id=5]
-[ext_resource path="res://pet/NeedSystem.cs" type="Script" id=6]
-[ext_resource path="res://pet/Pet.cs" type="Script" id=7]
+[ext_resource path="res://poi/LitterBox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://pet/Twiz.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/furnitures.png" type="Texture" id=5]
+[ext_resource path="res://poi/POI.cs" type="Script" id=6]
+[ext_resource path="res://poi/PetNeedPOI.cs" type="Script" id=7]
 [ext_resource path="res://gui/HUD.cs" type="Script" id=8]
 [ext_resource path="res://WanderingArea.cs" type="Script" id=9]
 [ext_resource path="res://assets/nav-auto-tiles.png" type="Texture" id=10]
@@ -374,22 +374,124 @@ points = PoolVector2Array( 0, 7.71918, 16, 7.71918, 16, 16, 0, 16 )
 2/shapes = [  ]
 2/z_index = 0
 
-[sub_resource type="CircleShape2D" id=7]
-radius = 4.12311
+[sub_resource type="TileSet" id=66]
+0/name = "furnitures.png 0"
+0/texture = ExtResource( 5 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 16, 64, 16 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 16, 16 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
 
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 16 )
+[sub_resource type="TileSet" id=67]
+0/name = "furnitures"
+0/texture = ExtResource( 5 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 32 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 16, 16 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "kitchen"
+1/texture = ExtResource( 5 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 64, 0, 32, 32 )
+1/tile_mode = 2
+1/autotile/icon_coordinate = Vector2( 0, 0 )
+1/autotile/tile_size = Vector2( 16, 16 )
+1/autotile/spacing = 0
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [  ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+2/name = "bathroom"
+2/texture = ExtResource( 5 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 112, 0, 16, 16 )
+2/tile_mode = 2
+2/autotile/icon_coordinate = Vector2( 0, 0 )
+2/autotile/tile_size = Vector2( 16, 16 )
+2/autotile/spacing = 0
+2/autotile/occluder_map = [  ]
+2/autotile/navpoly_map = [  ]
+2/autotile/priority_map = [  ]
+2/autotile/z_index_map = [  ]
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 8, 4 )
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 5 )
+region = Rect2( 48, 32, 16, 32 )
 
-[sub_resource type="CircleShape2D" id=11]
-radius = 13.0384
+[sub_resource type="AtlasTexture" id=64]
+atlas = ExtResource( 5 )
+region = Rect2( 64, 48, 16, 16 )
 
-[sub_resource type="CapsuleShape2D" id=12]
-radius = 2.0
-height = 12.0
+[sub_resource type="CircleShape2D" id=70]
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id=65]
+atlas = ExtResource( 5 )
+region = Rect2( 64, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=68]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 32, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=69]
+atlas = ExtResource( 5 )
+region = Rect2( 16, 32, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=71]
+atlas = ExtResource( 5 )
+region = Rect2( 96, 16, 16, 48 )
+
+[sub_resource type="AtlasTexture" id=72]
+atlas = ExtResource( 5 )
+region = Rect2( 96, 0, 16, 16 )
 
 [node name="World" type="Node2D"]
 
@@ -420,13 +522,14 @@ text = "10.000"
 align = 1
 
 [node name="NavTiles" type="TileMap" parent="."]
+visible = false
 tile_set = SubResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_quadrant_size = 4
 cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
 bake_navigation = true
 format = 1
-tile_data = PoolIntArray( 131073, 0, 8, 131074, 0, 10, 131075, 0, 10, 131076, 0, 11, 131078, 0, 8, 131079, 0, 10, 131080, 0, 10, 131081, 0, 10, 131082, 0, 10, 131083, 0, 11, 131085, 0, 8, 131086, 0, 10, 131087, 0, 10, 131088, 0, 11, 196609, 0, 65544, 196610, 0, 131081, 196611, 0, 131081, 196612, 0, 131083, 196614, 0, 65544, 196615, 0, 131081, 196616, 0, 131081, 196617, 0, 131081, 196618, 0, 131081, 196619, 0, 131083, 196621, 0, 65544, 196622, 0, 131081, 196623, 0, 131081, 196624, 0, 131083, 262145, 0, 196616, 262146, 0, 196617, 262147, 0, 196617, 262148, 0, 196614, 262149, 0, 196610, 262150, 0, 131080, 262151, 0, 131081, 262152, 0, 131081, 262153, 0, 131081, 262154, 0, 131081, 262155, 0, 65547, 262156, 0, 196610, 262157, 0, 196613, 262158, 0, 196617, 262159, 0, 196617, 262160, 0, 196619, 327686, 0, 65544, 327687, 0, 131081, 327688, 0, 131081, 327689, 0, 131081, 327690, 0, 131081, 327691, 0, 131083, 393222, 0, 65544, 393223, 0, 131081, 393224, 0, 131081, 393225, 0, 131081, 393226, 0, 131081, 393227, 0, 131083, 458753, 0, 8, 458754, 0, 10, 458755, 0, 10, 458756, 0, 6, 458757, 0, 196610, 458758, 0, 131080, 458759, 0, 131081, 458760, 0, 131081, 458761, 0, 131081, 458762, 0, 131081, 458763, 0, 65547, 458764, 0, 196610, 458765, 0, 5, 458766, 0, 10, 458767, 0, 10, 458768, 0, 11, 589823, 0, 196608, 524289, 0, 65544, 524290, 0, 131081, 524291, 0, 131081, 524292, 0, 131083, 524294, 0, 65544, 524295, 0, 131081, 524296, 0, 131081, 524297, 0, 131081, 524298, 0, 131081, 524299, 0, 131083, 524301, 0, 65544, 524302, 0, 131081, 524303, 0, 131081, 524304, 0, 131083, 589825, 0, 196616, 589826, 0, 196617, 589827, 0, 196617, 589828, 0, 196619, 589830, 0, 196616, 589831, 0, 196617, 589832, 0, 196617, 589833, 0, 196617, 589834, 0, 196617, 589835, 0, 196619, 589837, 0, 196616, 589838, 0, 196617, 589839, 0, 196617, 589840, 0, 196619 )
+tile_data = PoolIntArray( 131073, 0, 8, 131074, 0, 10, 131075, 0, 10, 131076, 0, 11, 196609, 0, 65544, 196610, 0, 131081, 196611, 0, 131081, 196612, 0, 131083, 196614, 0, 8, 196615, 0, 10, 196616, 0, 10, 196617, 0, 10, 196618, 0, 10, 196619, 0, 11, 196621, 0, 8, 196622, 0, 10, 196623, 0, 10, 196624, 0, 11, 262145, 0, 196616, 262146, 0, 196617, 262147, 0, 196617, 262148, 0, 196614, 262149, 0, 196610, 262150, 0, 131080, 262151, 0, 131081, 262152, 0, 131081, 262153, 0, 131081, 262154, 0, 131081, 262155, 0, 65547, 262156, 0, 196610, 262157, 0, 196613, 262158, 0, 196617, 262159, 0, 196617, 262160, 0, 196619, 327686, 0, 65544, 327687, 0, 131081, 327688, 0, 131081, 327689, 0, 131081, 327690, 0, 131081, 327691, 0, 131083, 393222, 0, 65544, 393223, 0, 131081, 393224, 0, 131081, 393225, 0, 131081, 393226, 0, 131081, 393227, 0, 131083, 458753, 0, 8, 458754, 0, 10, 458755, 0, 10, 458756, 0, 6, 458757, 0, 196610, 458758, 0, 131080, 458759, 0, 131081, 458760, 0, 131081, 458761, 0, 131081, 458762, 0, 131078, 458763, 0, 196614, 458764, 0, 196610, 458765, 0, 3, 589823, 0, 196608, 524289, 0, 65544, 524290, 0, 131081, 524291, 0, 131081, 524292, 0, 131083, 524294, 0, 65544, 524295, 0, 131081, 524296, 0, 131081, 524297, 0, 131081, 524298, 0, 131083, 524301, 0, 65540, 524302, 0, 10, 524303, 0, 11, 589825, 0, 196616, 589826, 0, 196617, 589827, 0, 196617, 589828, 0, 196619, 589830, 0, 196616, 589831, 0, 196617, 589832, 0, 196617, 589833, 0, 196617, 589834, 0, 196619, 589837, 0, 196616, 589838, 0, 196617, 589839, 0, 196619 )
 
 [node name="ground" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -445,90 +548,116 @@ collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 65536, 0, 0, 65537, 0, 65536, 65538, 0, 65536, 65539, 0, 65536, 65540, 0, 65536, 65541, 0, 0, 65542, 0, 65536, 65543, 0, 65536, 65544, 0, 65536, 65545, 0, 65536, 65546, 0, 65536, 65547, 0, 65536, 65548, 0, 0, 65549, 0, 65536, 65550, 0, 65536, 65551, 0, 65536, 65552, 0, 65536, 65553, 0, 0, 131072, 0, 0, 131077, 0, 0, 131084, 0, 0, 131089, 0, 0, 196608, 0, 0, 196613, 0, 65536, 196620, 0, 65536, 196625, 0, 0, 262144, 0, 0, 262161, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 0, 0, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 393216, 0, 0, 393217, 0, 65536, 393218, 0, 65536, 393219, 0, 65536, 393220, 0, 65536, 393221, 0, 65536, 393228, 0, 65536, 393229, 0, 65536, 393230, 0, 65536, 393231, 0, 65536, 393232, 0, 65536, 393233, 0, 0, 458752, 0, 0, 458769, 0, 0, 524288, 0, 0, 524293, 0, 0, 524300, 0, 0, 524305, 0, 0, 589824, 0, 0, 589829, 0, 0, 589836, 0, 0, 589841, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 720896, 0, 65537, 720897, 0, 65537, 720898, 0, 65537, 720899, 0, 65537, 720900, 0, 65537, 720901, 0, 65537, 720902, 0, 65537, 720903, 0, 65537, 720904, 0, 65537, 720905, 0, 65537, 720906, 0, 65537, 720907, 0, 65537, 720908, 0, 65537, 720909, 0, 65537, 720910, 0, 65537, 720911, 0, 65537, 720912, 0, 65537, 720913, 0, 65537 )
 
-[node name="Player" type="KinematicBody2D" parent="walls"]
-position = Vector2( 142, 102 )
-collision_layer = 2
-collision_mask = 0
-collision/safe_margin = 4.0
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_group_": true
-}
+[node name="Shadow" type="TileMap" parent="walls"]
+tile_set = SubResource( 66 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 4
+cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 131078, 0, 0, 131079, 0, 1, 131080, 0, 1, 131081, 0, 1, 131082, 0, 1, 131083, 0, 3, 131085, 0, 1, 131086, 0, 1, 131087, 0, 1 )
 
-[node name="Sprite" type="Sprite" parent="walls/Player"]
-position = Vector2( 0, -5 )
-texture = ExtResource( 2 )
-
-[node name="Camera2D" type="Camera2D" parent="walls/Player"]
-position = Vector2( 0, -5 )
-current = true
-zoom = Vector2( 0.25, 0.25 )
-
-[node name="MoveCollision" type="CollisionShape2D" parent="walls/Player"]
-shape = SubResource( 7 )
-
-[node name="NavAgent" type="NavigationAgent2D" parent="walls/Player"]
-path_desired_distance = 8.0
-target_desired_distance = 8.0
-path_max_distance = 64.0
-avoidance_enabled = true
-
-[node name="LitterBox" type="StaticBody2D" parent="walls" groups=["pet-needs"]]
-position = Vector2( 235, 70 )
-input_pickable = true
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
-type = 3
-
-[node name="Sprite" type="Sprite" parent="walls/LitterBox"]
-texture = SubResource( 9 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/LitterBox"]
-position = Vector2( 0, 4 )
-shape = SubResource( 10 )
-
-[node name="InteractArea" type="Area2D" parent="walls/LitterBox"]
-position = Vector2( 0, 5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/LitterBox/InteractArea"]
-shape = SubResource( 11 )
-
-[node name="Twiz" type="KinematicBody2D" parent="walls"]
-position = Vector2( 152, 119 )
-collision_layer = 4
-collision_mask = 0
-collision/safe_margin = 4.0
-script = ExtResource( 7 )
-__meta__ = {
-"_edit_group_": true
-}
-Speed = 64.0
-WanderingAreaNode = NodePath("../WanderingArea")
-
-[node name="Sprite" type="Sprite" parent="walls/Twiz"]
-texture = ExtResource( 5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/Twiz"]
-position = Vector2( 0, 6 )
-rotation = 1.5708
-shape = SubResource( 12 )
-
-[node name="NeedSystem" type="Node" parent="walls/Twiz"]
-script = ExtResource( 6 )
-
-[node name="NavAgent" type="NavigationAgent2D" parent="walls/Twiz"]
-path_desired_distance = 8.0
-target_desired_distance = 8.0
-avoidance_enabled = true
+[node name="Furnitues" type="TileMap" parent="walls"]
+position = Vector2( 0, -8 )
+z_index = 1
+z_as_relative = false
+tile_set = SubResource( 67 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 4
+cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
+cell_y_sort = true
+format = 1
+tile_data = PoolIntArray( 131078, 0, 0, 131079, 0, 1, 131080, 0, 2, 131081, 0, 1, 131082, 0, 2, 131083, 0, 3, 131085, 2, 0, 131086, 2, 0, 131087, 2, 0, 458766, 1, 0, 458767, 1, 0, 458768, 1, 1, 524302, 1, 65536, 524303, 1, 65536, 524304, 1, 1, 589840, 1, 1, 655376, 1, 1 )
 
 [node name="WanderingArea" type="Polygon2D" parent="walls"]
-position = Vector2( 0, -52.5974 )
-scale = Vector2( 1, 1.35065 )
+position = Vector2( -1, 3 )
 color = Color( 0.905882, 0.572549, 0.219608, 0.745098 )
-polygon = PoolVector2Array( 104, 73, 183, 73, 183, 150, 104, 150 )
+polygon = PoolVector2Array( 104, 73, 163, 73, 163, 150, 104, 150 )
 script = ExtResource( 9 )
 
-[node name="Position2D" type="Position2D" parent="."]
-position = Vector2( 183, 73 )
+[node name="Player" parent="walls" instance=ExtResource( 3 )]
+position = Vector2( 148, 95 )
+
+[node name="LitterBox" parent="walls" instance=ExtResource( 2 )]
+position = Vector2( 232, 72 )
+collision_mask = 6
+
+[node name="Twiz" parent="walls" instance=ExtResource( 4 )]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Bed" type="Node2D" parent="walls"]
+position = Vector2( 24, 41 )
+script = ExtResource( 6 )
+
+[node name="Base" type="Sprite" parent="walls/Bed"]
+texture = SubResource( 63 )
+
+[node name="Top" type="Sprite" parent="walls/Bed"]
+position = Vector2( 0, 8 )
+z_index = 1
+texture = SubResource( 64 )
+
+[node name="SlaveAttach" type="Position2D" parent="walls/Bed"]
+position = Vector2( 0, 4 )
+
+[node name="InteractArea" type="Area2D" parent="walls/Bed"]
+position = Vector2( 0, 5 )
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/Bed/InteractArea"]
+shape = SubResource( 70 )
+
+[node name="NightStand" type="Sprite" parent="walls"]
+position = Vector2( 40, 33 )
+texture = SubResource( 65 )
+
+[node name="Desk" type="Sprite" parent="walls"]
+
+[node name="Chair" type="Node2D" parent="walls"]
+position = Vector2( 143, 48 )
+script = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="walls/Chair"]
+position = Vector2( 0, 9 )
+texture = SubResource( 68 )
+
+[node name="SlaveAttach" type="Position2D" parent="walls/Chair"]
+position = Vector2( 0, 2 )
+
+[node name="InteractArea" type="Area2D" parent="walls/Chair"]
+position = Vector2( 0, 9 )
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/Chair/InteractArea"]
+shape = SubResource( 70 )
+
+[node name="Bowls" type="Node2D" parent="walls"]
+position = Vector2( 184, 144 )
+script = ExtResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="walls/Bowls"]
+texture = SubResource( 69 )
+
+[node name="PetAttach" type="Position2D" parent="walls/Bowls"]
+position = Vector2( -16, 0 )
+
+[node name="InteractArea" type="Area2D" parent="walls/Bowls"]
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/Bowls/InteractArea"]
+shape = SubResource( 70 )
+
+[node name="Toilet" type="Sprite" parent="walls"]
+position = Vector2( 264, 40 )
+texture = SubResource( 71 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Basin" type="Sprite" parent="walls"]
+position = Vector2( 232, 32 )
+texture = SubResource( 72 )

@@ -48,14 +48,18 @@ public class Player : Creature
   public void SetTargetPOI(POI poi)
   {
     _poi = poi;
-    SetDestination(poi.GlobalPosition);
+    SetDestination(poi.GetDestination(this));
   }
 
 
-  public void Interact(POI poi)
+  public void Interact(POI poi, Vector2? attachPoint)
   {
     Stop();
     GD.Print("interacting POI: ", poi.Name);
+    if (attachPoint.HasValue)
+    {
+      GlobalPosition = attachPoint.Value;
+    }
   }
   #endregion
 }

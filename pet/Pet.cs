@@ -20,7 +20,7 @@ public class Pet : Creature
   public override void _Process(float delta)
   {
     base._Process(delta);
-    if (_wanderingArea != null && !_isNavigating)
+    if (_wanderingArea != null && !_isNavigating && !_isBusy)
     {
       var location = _wanderingArea.GetRandomLocation();
       if (location.HasValue)
@@ -52,7 +52,19 @@ public class Pet : Creature
       var rnd = (int)(GD.Randf() * candidates.Count);
       var poi = candidates[rnd];
       GD.Print("[pet] is going to: ", poi.Name);
-      SetDestination(poi.GlobalPosition);
+      SetDestination(poi.GetDestination(this));
     }
+  }
+
+  public async void Interact(POI poi, Vector2? attachPoint)
+  {
+    _isBusy = true;
+    Stop();
+    if (attachPoint.HasValue)
+    {
+      GlobalPosition = attachPoint.Value;
+    }
+    await ToSignal(GetTree().CreateTimer(2), "timeout");
+    _isBusy = false;
   }
 }

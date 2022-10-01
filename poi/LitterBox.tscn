@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://poi/PetNeedPOI.cs" type="Script" id=1]
+[ext_resource path="res://assets/poc-world.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 8, 4 )
+
+[sub_resource type="CircleShape2D" id=11]
+radius = 16.0
+
+[node name="LitterBox" type="StaticBody2D" groups=["pet-needs"]]
+position = Vector2( 235, 70 )
+collision_layer = 8
+collision_mask = 3
+input_pickable = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+type = 3
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = SubResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 4 )
+shape = SubResource( 10 )
+
+[node name="InteractArea" type="Area2D" parent="."]
+position = Vector2( 0, 5 )
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource( 11 )
+
+[node name="PetAttach" type="Position2D" parent="."]

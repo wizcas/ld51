@@ -7,6 +7,7 @@ public abstract class Creature : KinematicBody2D
   protected NavigationAgent2D _navAgent;
   protected Vector2 _velocity;
   protected bool _isNavigating;
+  protected bool _isBusy;
   #endregion
 
   #region Hooks
