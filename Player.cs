@@ -26,7 +26,8 @@ public class Player : Creature
     {
       if (mouseEvent.IsPressed() && mouseEvent.ButtonIndex == (int)ButtonList.Left)
       {
-        SetDestination(GetGlobalMousePosition());
+        CancelForceMove();
+        SetNavTarget(GetGlobalMousePosition());
       }
     }
 
@@ -48,18 +49,15 @@ public class Player : Creature
   public void SetTargetPOI(POI poi)
   {
     _poi = poi;
-    SetDestination(poi.GetDestination(this));
+    SetNavTarget(poi.GetDestination(this));
   }
 
 
-  public void Interact(POI poi, Vector2? attachPoint)
+  public void Interact(POI poi)
   {
     Stop();
     GD.Print("interacting POI: ", poi.Name);
-    if (attachPoint.HasValue)
-    {
-      GlobalPosition = attachPoint.Value;
-    }
+    ForceMoveTo(poi.GetDestination(this));
   }
   #endregion
 }

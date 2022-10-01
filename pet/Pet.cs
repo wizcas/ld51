@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 
 public class Pet : Creature
@@ -25,8 +24,7 @@ public class Pet : Creature
       var location = _wanderingArea.GetRandomLocation();
       if (location.HasValue)
       {
-        GD.Print("wondering to: ", location.Value);
-        SetDestination(location.Value);
+        SetNavTarget(location.Value);
       }
     }
   }
@@ -51,20 +49,17 @@ public class Pet : Creature
     {
       var rnd = (int)(GD.Randf() * candidates.Count);
       var poi = candidates[rnd];
-      GD.Print("[pet] is going to: ", poi.Name);
-      SetDestination(poi.GetDestination(this));
+      SetNavTarget(poi.GetDestination(this));
     }
   }
 
-  public async void Interact(POI poi, Vector2? attachPoint)
+  public async void Interact(POI poi)
   {
     _isBusy = true;
     Stop();
-    if (attachPoint.HasValue)
-    {
-      GlobalPosition = attachPoint.Value;
-    }
+    ForceMoveTo(poi.GetDestination(this));
     await ToSignal(GetTree().CreateTimer(2), "timeout");
+    CancelForceMove();
     _isBusy = false;
   }
 }

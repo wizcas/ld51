@@ -18,7 +18,7 @@ public class POI : Node2D
   public override void _Ready()
   {
     /* Connect("input_event", this,nameof(OnInputEvent)); */
-    GetNode("InteractArea").Connect("body_entered", this, nameof(OnBodyEntered));
+    this.Connect("body_entered", this, nameof(OnBodyEntered));
     _petAttach = GetNodeOrNull<Node2D>("PetAttach");
     _slaveAttach = GetNodeOrNull<Node2D>("SlaveAttach");
   }
@@ -29,11 +29,11 @@ public class POI : Node2D
   public Vector2 GetDestination(Creature creature)
   {
     Vector2 pos;
-    if (creature is Pet)
+    if (creature is Pet && _petAttach != null)
     {
       pos = _petAttach.GlobalPosition;
     }
-    else if (creature is Player)
+    else if (creature is Player && _slaveAttach != null)
     {
       pos = _slaveAttach.GlobalPosition;
     }
@@ -59,12 +59,11 @@ public class POI : Node2D
   {
     if (body is Player player)
     {
-      player.Interact(this, _slaveAttach?.GlobalPosition);
+      player.Interact(this);
     }
     else if (body is Pet pet)
     {
-      GD.Print($"[pet] {pet.Name} is interacting with {Name}");
-      pet.Interact(this, _petAttach?.GlobalPosition);
+      pet.Interact(this);
     }
   }
 

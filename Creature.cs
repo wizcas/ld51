@@ -8,6 +8,8 @@ public abstract class Creature : KinematicBody2D
   protected Vector2 _velocity;
   protected bool _isNavigating;
   protected bool _isBusy;
+
+  private Vector2 _forceDestination;
   #endregion
 
   #region Hooks
@@ -19,26 +21,31 @@ public abstract class Creature : KinematicBody2D
   public override void _PhysicsProcess(float delta)
   {
     base._PhysicsProcess(delta);
-    if (!_isNavigating)
+
+    if (_isNavigating && !_isBusy)
     {
-      _velocity = Vector2.Zero;
-      return;
+      if (!_navAgent.IsTargetReachable())
+      {
+        Stop();
+      }
+      else if (_navAgent.IsTargetReached())
+      {
+        Stop();
+      }
+      else
+      {
+        var next = _navAgent.GetNextLocation();
+        _velocity = (next - GlobalPosition).Normalized() * Speed;
+      }
+    }
+    else if (_forceDestination != Vector2.Zero)
+    {
+      var offset = _forceDestination - GlobalPosition;
+      var dist = offset.Length();
+      _velocity = offset.Normalized() * Speed * Mathf.Min(dist, 16) / 8;
     }
 
-    if (!_navAgent.IsTargetReachable())
-    {
-      Stop();
-    }
-    else if (_navAgent.IsTargetReached())
-    {
-      Stop();
-    }
-    else
-    {
-      var next = _navAgent.GetNextLocation();
-      _velocity = (next - Position).Normalized() * Speed;
-    }
-    _velocity = MoveAndSlide(_velocity);
+    if (_velocity != Vector2.Zero) _velocity = MoveAndSlide(_velocity);
   }
   #endregion
 
@@ -46,8 +53,9 @@ public abstract class Creature : KinematicBody2D
   public void Stop()
   {
     _isNavigating = false;
+    _velocity = Vector2.Zero;
   }
-  public void SetDestination(Vector2 gPos)
+  public void SetNavTarget(Vector2 gPos)
   {
     _navAgent.SetTargetLocation(gPos);
     _isNavigating = true;
@@ -61,6 +69,15 @@ public abstract class Creature : KinematicBody2D
       Stop();
     }
   }
+  public void ForceMoveTo(Vector2 gPos)
+  {
+    _forceDestination = gPos;
+  }
+  public void CancelForceMove()
+  {
+    _forceDestination = Vector2.Zero;
+  }
+
   #endregion
 
 }
