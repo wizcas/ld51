@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Godot;
 
-public class PetNeedPOI : POI
+public class PetPOI : POI
 {
   [Export] public NeedType type;
 

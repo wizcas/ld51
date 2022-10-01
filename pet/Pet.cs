@@ -47,10 +47,10 @@ public class Pet : Creature
   public void GoForNeed(NeedData need)
   {
     var nodes = GetTree().GetNodesInGroup("pet-needs");
-    var candidates = new List<PetNeedPOI>();
+    var candidates = new List<PetPOI>();
     foreach (var node in nodes)
     {
-      if (node is PetNeedPOI poi && poi.type == need.Type)
+      if (node is PetPOI poi && poi.type == need.Type)
       {
         candidates.Add(poi);
       }
