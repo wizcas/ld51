@@ -68,12 +68,12 @@ public class POI : Node2D
       var tasks = new List<Task>();
       if (body is Player player && IsForPlayer)
       {
-        tasks.Add(Enter(creature));
+        tasks.Add(PlayerEnter(player));
         tasks.Add(player.Interact(this));
       }
       else if (body is Pet pet && IsForPet)
       {
-        tasks.Add(Enter(creature));
+        tasks.Add(PetEnter(pet));
         tasks.Add(pet.Interact(this));
       }
       await Task.WhenAll(tasks);
@@ -86,17 +86,19 @@ public class POI : Node2D
     {
       if (body is Player player && IsForPlayer)
       {
-        Leave(creature);
+        PlayerLeave(player);
       }
       else if (body is Pet pet && IsForPet)
       {
-        Leave(creature);
+        PetLeave(pet);
       }
     }
   }
 
-  protected virtual Task Enter(Creature worker) { return Task.CompletedTask; }
-  protected virtual void Leave(Creature worker) { }
+  protected virtual Task PlayerEnter(Player player) { return Task.CompletedTask; }
+  protected virtual Task PetEnter(Pet pet) { return Task.CompletedTask; }
+  protected virtual void PlayerLeave(Player leave) { }
+  protected virtual void PetLeave(Pet pet) { }
 
   #endregion
 }

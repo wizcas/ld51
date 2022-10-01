@@ -1,14 +1,14 @@
 using System.Threading.Tasks;
 
-public class Bed : PlayerPOI
+public class Bed : POI
 {
-  protected override Task Enter(Player player)
+  protected override Task PlayerEnter(Player player)
   {
     player.CurrentAction = Player.Action.Sleeping;
     return Task.CompletedTask;
   }
 
-  protected override void Leave(Player player)
+  protected override void PlayerLeave(Player player)
   {
     player.CurrentAction = Player.Action.Normal;
   }

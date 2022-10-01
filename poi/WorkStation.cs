@@ -1,14 +1,14 @@
 using System.Threading.Tasks;
 using Godot;
-public class WorkStation : PlayerPOI
+public class WorkStation : POI
 {
-  protected override Task Enter(Player player)
+  protected override Task PlayerEnter(Player player)
   {
     player.CurrentAction = Player.Action.Working;
     return Task.CompletedTask;
   }
 
-  protected override void Leave(Player player)
+  protected override void PlayerLeave(Player player)
   {
     player.CurrentAction = Player.Action.Normal;
   }
