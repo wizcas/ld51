@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 
 public class POI : Node2D
@@ -10,6 +11,7 @@ public class POI : Node2D
   #endregion
 
   #region Fields & Properties
+  [Export] public float WorkTime = 2;
   protected Node2D _petAttach;
   protected Node2D _slaveAttach;
   #endregion
@@ -55,17 +57,27 @@ public class POI : Node2D
       }
     }
   }
-  private void OnBodyEntered(Node body)
+  private async void OnBodyEntered(Node body)
   {
-    if (body is Player player)
+    if (body is Creature creature)
     {
-      player.Interact(this);
-    }
-    else if (body is Pet pet)
-    {
-      pet.Interact(this);
+      var tasks = new Task[]{
+        Work(creature),
+        null
+      };
+      if (body is Player player)
+      {
+        tasks[1] = player.Interact(this);
+      }
+      else if (body is Pet pet)
+      {
+        tasks[1] = pet.Interact(this);
+      }
+      await Task.WhenAll(tasks);
     }
   }
+
+  protected virtual Task Work(Creature worker) { return Task.CompletedTask; }
 
   #endregion
 }

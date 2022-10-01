@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 
 public class Player : Creature
@@ -53,11 +54,11 @@ public class Player : Creature
   }
 
 
-  public void Interact(POI poi)
+  public async override Task Interact(POI poi)
   {
     Stop();
-    GD.Print("interacting POI: ", poi.Name);
     ForceMoveTo(poi.GetDestination(this));
+    await Task.CompletedTask;
   }
   #endregion
 }

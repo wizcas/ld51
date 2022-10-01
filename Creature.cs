@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 
 public abstract class Creature : KinematicBody2D
@@ -77,6 +78,8 @@ public abstract class Creature : KinematicBody2D
   {
     _forceDestination = Vector2.Zero;
   }
+
+  public abstract Task Interact(POI poi);
 
   #endregion
 

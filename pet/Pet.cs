@@ -1,15 +1,18 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 
 public class Pet : Creature
 {
   [Export] NodePath WanderingAreaNode;
 
+  public NeedSystem Needs { get; private set; }
   private WanderingArea _wanderingArea;
 
   public override void _Ready()
   {
     base._Ready();
+    Needs = GetNode<NeedSystem>("NeedSystem");
     if (!WanderingAreaNode.IsEmpty())
     {
       _wanderingArea = GetNode<WanderingArea>(WanderingAreaNode);
@@ -29,7 +32,7 @@ public class Pet : Creature
     }
   }
 
-  public void Go(NeedData need)
+  public void GoForNeed(NeedData need)
   {
     var nodes = GetTree().GetNodesInGroup("pet-needs");
     var candidates = new List<PetNeedPOI>();
@@ -53,7 +56,7 @@ public class Pet : Creature
     }
   }
 
-  public async void Interact(POI poi)
+  public async override Task Interact(POI poi)
   {
     _isBusy = true;
     Stop();

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Godot;
 
 public class NeedData
@@ -10,7 +12,7 @@ public class NeedData
   public float Rate;
   public int Increment;
 
-  private float _nextTick;
+  private float _nextTickMs;
 
   public string Name => Enum.GetName(typeof(NeedType), Type);
 
@@ -24,16 +26,21 @@ public class NeedData
   }
   public void Process(float delta)
   {
-    if (OS.GetTicksMsec() > _nextTick)
+    if (OS.GetTicksMsec() > _nextTickMs)
     {
       Value += Increment;
       UpdateNextTick();
-      GD.Print($"[{Name}] => {Value}");
+      GD.Print($"[{Name}] clear! => {Value}");
     }
+  }
+  public async Task WaitClear(float duration)
+  {
+    await Task.Delay((int)(duration * 1000));
+    Value = 0;
   }
   private void UpdateNextTick()
   {
-    _nextTick = OS.GetTicksMsec() + Rate * 1000;
+    _nextTickMs = OS.GetTicksMsec() + Rate * 1000;
   }
 
 }
@@ -91,11 +98,20 @@ public class NeedSystem : Node
     if (mostWanted.Length > 0)
     {
       var rnd = (int)(GD.Randf() * mostWanted.Length);
-      _pet.Go(mostWanted[rnd]);
+      _pet.GoForNeed(mostWanted[rnd]);
     }
     else
     {
       GD.Print("no needs");
+    }
+  }
+
+  public async Task Clear(NeedType needType, float workTime)
+  {
+    var need = _needs.FirstOrDefault(n => n.Type == needType);
+    if (need != null)
+    {
+      await need.WaitClear(workTime);
     }
   }
 }
