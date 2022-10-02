@@ -28,7 +28,11 @@ public abstract class Creature : KinematicBody2D
   public override void _PhysicsProcess(float delta)
   {
     base._PhysicsProcess(delta);
-    if (_isFrozen) return;
+    if (_isFrozen)
+    {
+      MoveAndSlide(Vector2.Zero);
+      return;
+    }
 
     if (_isNavigating && !IsBusy)
     {
@@ -51,6 +55,10 @@ public abstract class Creature : KinematicBody2D
       var offset = _forceDestination - GlobalPosition;
       var dist = offset.Length();
       _velocity = offset.Normalized() * Speed * Mathf.Min(dist, 16) / 8;
+    }
+    else
+    {
+      _velocity = Vector2.Zero;
     }
 
     if (_velocity != Vector2.Zero) _velocity = MoveAndSlide(_velocity);

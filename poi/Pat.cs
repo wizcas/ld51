@@ -26,7 +26,7 @@ public class Pat : POI
     player.Freeze(true);
     pet.Freeze(true);
     pet.Love(true);
-    pet.PlaySound(PetSound.Purr, WorkTime);
+    pet.PlaySound(PetSound.Purr);
     await pet.Needs.Clear(NeedType.Love, WorkTime);
     pet.Love(false);
     player.Freeze(false);

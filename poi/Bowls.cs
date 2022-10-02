@@ -35,7 +35,7 @@ public class Bowls : PetPOI
   {
     if (_food != null)
     {
-      pet.PlaySound(PetSound.Eat, WorkTime);
+      pet.PlaySound(PetSound.Eat);
       await base.PetEnter(pet);
       pet.Needs.Happiness += _food.Happiness + HappinessGain;
       if (--Fullness <= 0) _food = null;

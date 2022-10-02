@@ -46,7 +46,6 @@ public class POI : Node2D
     }
     else if (creature is Player && _slaveAttach != null)
     {
-      GD.Print("slave attach: ", _slaveAttach.GetPath().ToString());
       pos = _slaveAttach.GlobalPosition;
     }
     else

@@ -106,7 +106,10 @@ public class Player : Creature
   }
   public void ForgetPOI(POI poi)
   {
-    if (poi == _poi) _poi = null;
+    if (poi == _poi)
+    {
+      _poi = null;
+    }
     if (_poiQueue.Contains(poi))
     {
       _poiQueue.Remove(poi);
@@ -138,8 +141,11 @@ public class Player : Creature
     Stop();
     ForceMoveTo(poi.GetDestination(this));
     await Task.Delay(TimeSpan.FromSeconds(poi.WorkTime));
-    _poi = null;
-    GD.PrintErr("poi reset");
+    if (poi == _poi)
+    {
+      // clear the active POI if no following ones.
+      ForgetPOI(poi);
+    }
     IsBusy = false;
   }
 

@@ -116,7 +116,7 @@ public class Pet : Creature
     _nextActionTime = OS.GetTicksMsec() + 1000;
   }
 
-  public async void PlaySound(PetSound sound, float duration = 0)
+  public void PlaySound(PetSound sound)
   {
     var audio = GetNode<AudioStreamPlayer2D>("Sound");
     AudioStreamMP3 stream = null;
@@ -132,7 +132,6 @@ public class Pet : Creature
         stream = ShoutSounds[(int)(GD.Randf() * ShoutSounds.Length)];
         break;
     }
-    GD.Print("play sound: ", sound, " ", stream);
     if (stream != null)
     {
       var length = stream.GetLength();
