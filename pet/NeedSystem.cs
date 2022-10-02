@@ -22,9 +22,9 @@ public class NeedSystem : Node
   }
 
   private List<NeedData> _needs = new List<NeedData>{
-    new NeedData(NeedType.Hunger){Rate=3},
-    new NeedData(NeedType.Love){Rate=2,BoostChance=.7f},
-    new NeedData(NeedType.Defecation){Rate=3,Increment=10},
+    new NeedData(NeedType.Hunger){Increment=8,BoostChance=.5f},
+    new NeedData(NeedType.Love){Increment=10,BoostChance=.7f},
+    new NeedData(NeedType.Defecation){Increment=5,BoostChance=.4f},
   };
   private Pet _pet;
 
@@ -60,16 +60,13 @@ public class NeedSystem : Node
     var madNeeds = _needs.Where(n => n.Value >= MAX_NEED_VALUE);
     await Mad(madNeeds);
 
-    var mostWanted = _needs.OrderByDescending(n => n.Value).Where(n => n.Value >= MIN_NEED_VALUE).ToArray();
+    // won't go for Love needs because there's no such POI.
+    // Player needs to comfort the pet manually.
+    var mostWanted = _needs.Where(n => n.Type != NeedType.Love).OrderByDescending(n => n.Value).Where(n => n.Value >= MIN_NEED_VALUE).ToArray();
     if (mostWanted.Length > 0)
     {
       var rnd = (int)(GD.Randf() * mostWanted.Length);
       _pet.FulfillNeed(mostWanted[rnd]);
-    }
-    else
-    {
-      GD.Print("no needs");
-      // TODO: randomly ask for love
     }
   }
 
@@ -78,7 +75,8 @@ public class NeedSystem : Node
     var need = _needs.FirstOrDefault(n => n.Type == needType);
     if (need != null)
     {
-      await need.WaitClear(workTime);
+      await Task.Delay(TimeSpan.FromSeconds(workTime));
+      need.Clear();
     }
   }
 

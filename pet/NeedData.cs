@@ -6,10 +6,12 @@ using Godot;
 public class NeedData
 {
   public NeedType Type;
-  public int Value;
+  public float Value;
   public float Rate;
   public int Increment;
   public float BoostChance;
+  public float BoostMultiplier = .5f;
+  public float BoostRandomness = 1f;
 
   private float _nextTickMs;
 
@@ -30,15 +32,13 @@ public class NeedData
       Value += Increment;
       if (GD.Randf() < BoostChance)
       {
-        Value += Increment * 10;
+        Value += Increment * BoostMultiplier * (GD.Randf() + BoostRandomness);
       }
       UpdateNextTick();
-      GD.Print($"[{Name}] => {Value}");
     }
   }
-  public async Task WaitClear(float duration)
+  public void Clear()
   {
-    await Task.Delay((int)(duration * 1000));
     Value = 0;
   }
   private void UpdateNextTick()

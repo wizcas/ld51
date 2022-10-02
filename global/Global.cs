@@ -46,6 +46,9 @@ public class Global : Node
   public void GameOver(Ending ending)
   {
     GD.Print("Game Over: ", System.Enum.GetName(typeof(Ending), ending));
+    TenSec.WaitTime = 0;
+    TenSec.Stop();
+    GetTree().Paused = true;
   }
 }
 
