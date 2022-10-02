@@ -8,6 +8,7 @@ public class Pet : Creature
   #region Fields and Properties
   [Signal] public delegate void Shouting(Pet pet);
   [Export] NodePath WanderingAreaNode;
+  [Export] public float ShoutTime = .5f;
 
   public NeedSystem Needs { get; private set; }
   private WanderingArea _wanderingArea;
@@ -64,7 +65,6 @@ public class Pet : Creature
     }
     if (candidates.Count == 0)
     {
-      // TODO: show warning on UI to let the player know
       GD.PrintErr("cannot meet pet's need for no poi found: ", need.Name);
     }
     else
@@ -85,12 +85,21 @@ public class Pet : Creature
     CancelForceMove();
     _isBusy = false;
   }
+  public async Task Disappoint()
+  {
+    if (Needs.MostWanted != null && Needs.MostWanted.IsUnbearable)
+    {
+      await Needs.Mad(new[] {
+        Needs.MostWanted
+      });
+    }
+  }
   public async Task Shout()
   {
     _isBusy = true;
     Stop();
     EmitSignal(nameof(Shouting), this);
-    await Task.Delay(TimeSpan.FromSeconds(.5f));
+    await Task.Delay(TimeSpan.FromSeconds(ShoutTime));
     Think();
     _isBusy = false;
   }

@@ -18,6 +18,8 @@ public class NeedData
 
   public string Name => Enum.GetName(typeof(NeedType), Type);
 
+  public bool IsUnbearable => Value >= NeedSystem.MAX_NEED_VALUE;
+
   public NeedData(NeedType type)
   {
     Type = type;

@@ -39,7 +39,7 @@ shape = SubResource( 7 )
 
 [node name="NavAgent" type="NavigationAgent2D" parent="."]
 path_desired_distance = 8.0
-target_desired_distance = 8.0
+target_desired_distance = 4.0
 path_max_distance = 64.0
 avoidance_enabled = true
 

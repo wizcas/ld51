@@ -9,7 +9,7 @@ public class SanitySystem : Node
   [Export] public float MaxWorkProgress = 100;
 
   [Export] public float SanityWorkLossRate = 2f;
-  [Export] public float SanityShoutLossRate = 40f;
+  [Export] public float SanityShoutLossRate = 20f;
   [Export] public float SanitySleepGainRate = 10f;
   [Export] public float WorkGainRate = 1;
 

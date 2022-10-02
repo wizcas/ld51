@@ -83,10 +83,17 @@ public class POI : Node2D
           player.SetTargetPOI(null);
         }
       }
-      else if (body is Pet pet && IsForPet && CanPetUse)
+      else if (body is Pet pet && IsForPet)
       {
-        tasks.Add(PetEnter(pet));
-        tasks.Add(pet.Interact(this));
+        if (CanPetUse)
+        {
+          tasks.Add(PetEnter(pet));
+          tasks.Add(pet.Interact(this));
+        }
+        else
+        {
+          tasks.Add(pet.Disappoint());
+        }
       }
       await Task.WhenAll(tasks);
     }

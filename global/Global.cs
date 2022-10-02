@@ -15,6 +15,7 @@ public class Global : Node
   public CameraShake Camera;
   public HUD HUD;
   public Meow Meow;
+  public StartScreen StartScreen;
 
   public override void _EnterTree()
   {
@@ -23,12 +24,14 @@ public class Global : Node
     TenSec = GetNode<GlobalTimer>("10s");
     HUD = GetNode<HUD>("GameGUI/HUD");
     Meow = GetNode<Meow>("GameGUI/Meow");
+    StartScreen = GetNode<StartScreen>("GameGUI/StartScreen");
   }
 
   public override void _Ready()
   {
     base._Ready();
-    StartGame();
+    GetTree().Paused = true;
+    StartScreen.Show();
   }
 
   public override void _Process(float delta)
@@ -41,6 +44,8 @@ public class Global : Node
   public void StartGame()
   {
     TimeLeft = TotalTime;
+    StartScreen.Hide();
+    GetTree().Paused = false;
   }
 
   public void GameOver(Ending ending)
