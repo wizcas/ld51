@@ -42,14 +42,7 @@ public class Player : Creature
     set
     {
       base.IsBusy = value;
-      if (value)
-      {
-        _busyCloud.Show();
-      }
-      else
-      {
-        _busyCloud.Hide();
-      }
+      ToggleBusyCloud(value);
     }
   }
   #endregion
@@ -162,6 +155,10 @@ public class Player : Creature
       await Task.Delay(TimeSpan.FromSeconds(FreezeTime));
       Freeze(false);
     }
+  }
+  public void ToggleBusyCloud(bool show)
+  {
+    _busyCloud.Visible = show;
   }
 
   #endregion

@@ -66,10 +66,7 @@ mouse_filter = 2
 script = ExtResource( 1 )
 
 [node name="Top" type="ColorRect" parent="HUD"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -169.5
-margin_right = 169.5
+margin_right = 339.0
 margin_bottom = 125.0
 color = Color( 0.168627, 0.180392, 0.2, 0.784314 )
 

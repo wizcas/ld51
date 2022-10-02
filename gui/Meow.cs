@@ -29,9 +29,9 @@ public class Meow : Control
     var vp = GetViewportRect();
     var center = vp.Size / 2;
     var showVPos = _origin.GetViewportTransform() * _origin.GlobalPosition;
-    showVPos += (center - showVPos).Normalized() * vp.Size.x * .1f;
     showVPos.x = Mathf.Clamp(showVPos.x, 0, vp.Size.x - Margin);
     showVPos.y = Mathf.Clamp(showVPos.y, 0, vp.Size.y - Margin);
+    showVPos += (center - showVPos).Normalized() * RectSize.x;
     RectGlobalPosition = showVPos;
     UpdateRotation(showVPos, center);
   }
@@ -43,6 +43,7 @@ public class Meow : Control
     _origin = origin;
     Show();
     await Task.Delay(1000);
+    _origin = null;
     Hide();
   }
   public void OnPetShouting(Pet pet)

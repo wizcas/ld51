@@ -11,6 +11,7 @@ script = ExtResource( 2 )
 [node name="GameGUI" parent="." instance=ExtResource( 4 )]
 
 [node name="ArrowMarker" parent="." instance=ExtResource( 1 )]
+position = Vector2( 143, 187 )
 
 [node name="10s" type="Timer" parent="."]
 wait_time = 10.0

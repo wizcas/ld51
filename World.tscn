@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=2]
+[gd_scene load_steps=121 format=2]
 
 [ext_resource path="res://assets/poc-world.png" type="Texture" id=1]
 [ext_resource path="res://poi/LitterBox.tscn" type="PackedScene" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://poi/Bowl0.tres" type="Texture" id=14]
 [ext_resource path="res://poi/Bowl1.tres" type="Texture" id=15]
 [ext_resource path="res://poi/Bowl2.tres" type="Texture" id=16]
+[ext_resource path="res://assets/computer.png" type="Texture" id=17]
+[ext_resource path="res://assets/bubble.png" type="Texture" id=18]
 
 [sub_resource type="NavigationPolygon" id=14]
 vertices = PoolVector2Array( 4.03125, 4.09375, 11.9063, 4.15625, 11.9063, 16, 3.96875, 16 )
@@ -567,6 +569,62 @@ polygon = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 2/shapes = [  ]
 2/z_index = 0
 
+[sub_resource type="AtlasTexture" id=94]
+atlas = ExtResource( 17 )
+region = Rect2( 0, 0, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=95]
+atlas = ExtResource( 17 )
+region = Rect2( 32, 0, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=96]
+atlas = ExtResource( 17 )
+region = Rect2( 64, 0, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=97]
+atlas = ExtResource( 17 )
+region = Rect2( 96, 0, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=98]
+atlas = ExtResource( 17 )
+region = Rect2( 0, 16, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=99]
+atlas = ExtResource( 17 )
+region = Rect2( 32, 16, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=100]
+atlas = ExtResource( 17 )
+region = Rect2( 64, 16, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=101]
+atlas = ExtResource( 17 )
+region = Rect2( 96, 16, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=102]
+atlas = ExtResource( 17 )
+region = Rect2( 0, 32, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=103]
+atlas = ExtResource( 17 )
+region = Rect2( 32, 32, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=104]
+atlas = ExtResource( 17 )
+region = Rect2( 64, 32, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=105]
+atlas = ExtResource( 17 )
+region = Rect2( 96, 32, 32, 16 )
+
+[sub_resource type="SpriteFrames" id=106]
+animations = [ {
+"frames": [ SubResource( 94 ), SubResource( 95 ), SubResource( 96 ), SubResource( 97 ), SubResource( 98 ), SubResource( 99 ), SubResource( 100 ), SubResource( 101 ), SubResource( 102 ), SubResource( 103 ), SubResource( 104 ), SubResource( 105 ) ],
+"loop": true,
+"name": "work",
+"speed": 8.0
+} ]
+
 [sub_resource type="AtlasTexture" id=63]
 atlas = ExtResource( 5 )
 region = Rect2( 96, 16, 16, 32 )
@@ -576,10 +634,22 @@ atlas = ExtResource( 5 )
 region = Rect2( 96, 48, 16, 16 )
 
 [sub_resource type="CircleShape2D" id=70]
-radius = 11.0
+radius = 17.0294
+
+[sub_resource type="AtlasTexture" id=107]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 0, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=110]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 64, 32, 16 )
 
 [sub_resource type="CapsuleShape2D" id=93]
 radius = 13.0
+
+[sub_resource type="AtlasTexture" id=111]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 96, 32, 16 )
 
 [sub_resource type="AtlasTexture" id=65]
 atlas = ExtResource( 5 )
@@ -589,12 +659,20 @@ region = Rect2( 80, 16, 16, 16 )
 atlas = ExtResource( 5 )
 region = Rect2( 0, 32, 16, 32 )
 
+[sub_resource type="AtlasTexture" id=109]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 48, 32, 16 )
+
 [sub_resource type="AtlasTexture" id=69]
 atlas = ExtResource( 5 )
 region = Rect2( 16, 32, 16, 16 )
 
 [sub_resource type="CircleShape2D" id=92]
 radius = 13.0384
+
+[sub_resource type="AtlasTexture" id=108]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 16, 32, 16 )
 
 [sub_resource type="AtlasTexture" id=71]
 atlas = ExtResource( 5 )
@@ -653,6 +731,12 @@ cell_y_sort = true
 format = 1
 tile_data = PoolIntArray( 131078, 0, 0, 131079, 0, 1, 131080, 0, 2, 131081, 0, 1, 131082, 0, 2, 131083, 0, 3, 131085, 2, 0, 131086, 2, 0, 131087, 2, 0, 458767, 1, 0, 458768, 1, 1, 524303, 1, 65536, 524304, 1, 1, 589840, 1, 1, 655376, 1, 1 )
 
+[node name="Computer" type="AnimatedSprite" parent="walls/Furnitues"]
+position = Vector2( 143, 36 )
+frames = SubResource( 106 )
+animation = "work"
+frame = 9
+
 [node name="WanderingArea" type="Polygon2D" parent="walls"]
 visible = false
 position = Vector2( -1, 3 )
@@ -691,6 +775,17 @@ position = Vector2( 0, 4 )
 position = Vector2( 0, 5 )
 shape = SubResource( 70 )
 
+[node name="Warn" type="Node2D" parent="walls/Bed"]
+position = Vector2( 0, -1 )
+z_index = 5
+
+[node name="Sprite" type="Sprite" parent="walls/Bed/Warn"]
+position = Vector2( 0, -8 )
+texture = SubResource( 107 )
+
+[node name="Sprite" type="Sprite" parent="walls/Bed/Warn/Sprite"]
+texture = SubResource( 110 )
+
 [node name="Fridge" type="Area2D" parent="walls"]
 position = Vector2( 232, 111 )
 collision_layer = 16
@@ -708,6 +803,17 @@ position = Vector2( 0, 19 )
 position = Vector2( 0, 2 )
 shape = SubResource( 93 )
 
+[node name="Warn" type="Node2D" parent="walls/Fridge"]
+position = Vector2( 0, -10 )
+z_index = 5
+
+[node name="Sprite" type="Sprite" parent="walls/Fridge/Warn"]
+position = Vector2( 0, -8 )
+texture = SubResource( 107 )
+
+[node name="Sprite" type="Sprite" parent="walls/Fridge/Warn/Sprite"]
+texture = SubResource( 111 )
+
 [node name="NightStand" type="Sprite" parent="walls"]
 position = Vector2( 40, 33 )
 texture = SubResource( 65 )
@@ -719,7 +825,9 @@ position = Vector2( 143, 48 )
 collision_layer = 16
 collision_mask = 3
 script = ExtResource( 8 )
+WorkTime = 1.0
 IsForPet = false
+ComputerNode = NodePath("../Furnitues/Computer")
 
 [node name="Sprite" type="Sprite" parent="walls/Chair"]
 position = Vector2( 0, 9 )
@@ -729,8 +837,19 @@ texture = SubResource( 68 )
 position = Vector2( 0, 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="walls/Chair"]
-position = Vector2( 0, 9 )
+position = Vector2( 0, 2 )
 shape = SubResource( 70 )
+
+[node name="Warn" type="Node2D" parent="walls/Chair"]
+position = Vector2( 0, -1 )
+z_index = 5
+
+[node name="Sprite" type="Sprite" parent="walls/Chair/Warn"]
+position = Vector2( 0, -8 )
+texture = SubResource( 107 )
+
+[node name="Sprite" type="Sprite" parent="walls/Chair/Warn/Sprite"]
+texture = SubResource( 109 )
 
 [node name="LitterBox" parent="walls" instance=ExtResource( 2 )]
 position = Vector2( 232, 72 )
@@ -750,10 +869,21 @@ texture = SubResource( 69 )
 position = Vector2( -6, 0 )
 
 [node name="SlaveAttach" type="Position2D" parent="walls/Bowls"]
-position = Vector2( -4, -9 )
+position = Vector2( -4, 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="walls/Bowls"]
 shape = SubResource( 92 )
+
+[node name="Warn" type="Node2D" parent="walls/Bowls"]
+position = Vector2( 3, -4 )
+z_index = 5
+
+[node name="Sprite" type="Sprite" parent="walls/Bowls/Warn"]
+position = Vector2( 0, -8 )
+texture = SubResource( 107 )
+
+[node name="Sprite" type="Sprite" parent="walls/Bowls/Warn/Sprite"]
+texture = SubResource( 108 )
 
 [node name="Toilet" type="Sprite" parent="walls"]
 position = Vector2( 264, 40 )

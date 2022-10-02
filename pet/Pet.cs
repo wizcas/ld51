@@ -14,6 +14,7 @@ public class Pet : Creature
   private WanderingArea _wanderingArea;
   private float _nextActionTime;
   private CPUParticles2D _loveFX;
+  private Sprite _sprite;
   #endregion
 
   #region Hooks
@@ -25,6 +26,7 @@ public class Pet : Creature
   public override void _Ready()
   {
     base._Ready();
+    _sprite = GetNode<Sprite>("Sprite");
     Needs = GetNode<NeedSystem>("NeedSystem");
     _loveFX = GetNode<CPUParticles2D>("LoveFX");
     if (!WanderingAreaNode.IsEmpty())
@@ -36,12 +38,12 @@ public class Pet : Creature
   public override void _Process(float delta)
   {
     base._Process(delta);
+    _sprite.FlipH = _velocity.x > 0;
     if (_wanderingArea != null && !_isNavigating && !_isFrozen && !IsBusy && OS.GetTicksMsec() > _nextActionTime)
     {
       var location = _wanderingArea.GetRandomLocation();
       if (location.HasValue)
       {
-        GD.Print("next wander location @ ", location.Value);
         SetNavTarget(location.Value);
         location = null;
       }
@@ -56,11 +58,9 @@ public class Pet : Creature
     var candidates = new List<PetPOI>();
     foreach (Node node in nodes)
     {
-      GD.Print($"checking poi node: {node.Name}, isPetPOI: {node is PetPOI}, type: {(node as PetPOI)?.Type}, want: {need.Type}");
       if (node is PetPOI poi && poi.Type == need.Type)
       {
         candidates.Add(poi);
-        GD.Print($"pet poi candicate: {poi.Name} -> {System.Enum.GetName(typeof(NeedType), poi.Type)}");
       }
     }
     if (candidates.Count == 0)
@@ -71,7 +71,6 @@ public class Pet : Creature
     {
       var rnd = (int)(GD.Randf() * candidates.Count);
       var poi = candidates[rnd];
-      GD.Print($"pet is going to POI: {poi.Name} @ {poi.GetDestination(this)}");
       SetNavTarget(poi.GetDestination(this));
       Think();
     }

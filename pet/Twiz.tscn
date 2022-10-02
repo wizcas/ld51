@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/twiz.png" type="Texture" id=1]
 [ext_resource path="res://pet/Pet.cs" type="Script" id=2]
 [ext_resource path="res://pet/NeedSystem.cs" type="Script" id=3]
 [ext_resource path="res://poi/Pat.cs" type="Script" id=4]
 [ext_resource path="res://assets/icons.png" type="Texture" id=5]
+[ext_resource path="res://assets/bubble.png" type="Texture" id=6]
 
 [sub_resource type="CapsuleShape2D" id=12]
 radius = 2.0
@@ -12,6 +13,14 @@ height = 12.0
 
 [sub_resource type="CircleShape2D" id=13]
 radius = 12.0
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 80, 32, 16 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 5 )
@@ -53,6 +62,17 @@ IsForPet = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pat"]
 position = Vector2( 0, -4 )
 shape = SubResource( 13 )
+
+[node name="Warn" type="Node2D" parent="Pat"]
+position = Vector2( 0, -13 )
+z_index = 5
+
+[node name="Sprite" type="Sprite" parent="Pat/Warn"]
+position = Vector2( 0, -8 )
+texture = SubResource( 16 )
+
+[node name="Sprite" type="Sprite" parent="Pat/Warn/Sprite"]
+texture = SubResource( 17 )
 
 [node name="LoveFX" type="CPUParticles2D" parent="."]
 position = Vector2( 0, -9 )

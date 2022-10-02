@@ -15,6 +15,7 @@ public class Bowls : PetPOI
     {
       _fullness = (int)Mathf.Clamp(value, 0, MaxFullness);
       Sprite.Texture = FullnessTextures[_fullness >= FullnessTextures.Length ? FullnessTextures.Length - 1 : _fullness];
+      ToggleWarn(_fullness == 0);
     }
   }
 
@@ -23,6 +24,12 @@ public class Bowls : PetPOI
   protected override bool CanPlayerUse(Player player) => Fullness < MaxFullness && player.Inventory.Food != null;
   protected override bool CanPetUse(Pet pet) => Fullness > 0;
   private Sprite Sprite => GetNode<Sprite>("Sprite");
+
+  public override void _Ready()
+  {
+    base._Ready();
+    Fullness = 0;
+  }
 
   protected override async Task PetEnter(Pet pet)
   {

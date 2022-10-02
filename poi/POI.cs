@@ -17,6 +17,7 @@ public class POI : Node2D
   [Export] public bool IsForPet = true;
   protected Node2D _petAttach;
   protected Node2D _slaveAttach;
+  private Node2D _warnBubble;
 
   protected virtual bool CanPlayerUse(Player player) => true;
   protected virtual bool CanPetUse(Pet pet) => true;
@@ -30,6 +31,7 @@ public class POI : Node2D
     this.Connect("body_exited", this, nameof(OnBodyExited));
     _petAttach = GetNodeOrNull<Node2D>("PetAttach");
     _slaveAttach = GetNodeOrNull<Node2D>("SlaveAttach");
+    _warnBubble = GetNodeOrNull<Node2D>("Warn");
   }
 
   #endregion
@@ -113,6 +115,14 @@ public class POI : Node2D
       }
     }
   }
+
+  protected bool ToggleWarn(bool show)
+  {
+    if (_warnBubble == null) return false;
+    _warnBubble.Visible = show;
+    return show;
+  }
+  protected bool IsToggleShown => _warnBubble?.Visible ?? false;
 
   protected virtual Task PlayerEnter(Player player) { return Task.CompletedTask; }
   protected virtual Task PetEnter(Pet pet) { return Task.CompletedTask; }

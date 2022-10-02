@@ -14,6 +14,7 @@ public class LitterBox : PetPOI
     {
       _fullness = (int)Mathf.Clamp(value, 0, MaxFullness);
       Sprite.Texture = FullnessTextures[_fullness >= FullnessTextures.Length ? FullnessTextures.Length - 1 : _fullness];
+      ToggleWarn(_fullness >= MaxFullness);
     }
   }
 
@@ -25,6 +26,7 @@ public class LitterBox : PetPOI
   public override void _Ready()
   {
     base._Ready();
+    Fullness = 0;
   }
 
   protected override async Task PlayerEnter(Player player)

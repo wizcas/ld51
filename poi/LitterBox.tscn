@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://poi/LitterBox.cs" type="Script" id=1]
 [ext_resource path="res://assets/furnitures.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://poi/LitterBox1.tres" type="Texture" id=4]
 [ext_resource path="res://poi/LitterBox0.tres" type="Texture" id=5]
 [ext_resource path="res://poi/LitterBox3.tres" type="Texture" id=6]
+[ext_resource path="res://assets/bubble.png" type="Texture" id=7]
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
@@ -13,6 +14,14 @@ region = Rect2( 48, 32, 16, 16 )
 
 [sub_resource type="CircleShape2D" id=11]
 radius = 16.0
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 32, 16 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 32, 32, 16 )
 
 [node name="LitterBox" type="Area2D" groups=["pet-needs"]]
 position = Vector2( 235, 70 )
@@ -37,3 +46,14 @@ position = Vector2( 0, -8 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 5 )
 shape = SubResource( 11 )
+
+[node name="Warn" type="Node2D" parent="."]
+position = Vector2( 0, -1 )
+z_index = 5
+
+[node name="Sprite" type="Sprite" parent="Warn"]
+position = Vector2( 0, -8 )
+texture = SubResource( 12 )
+
+[node name="Sprite" type="Sprite" parent="Warn/Sprite"]
+texture = SubResource( 13 )
