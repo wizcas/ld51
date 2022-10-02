@@ -20,10 +20,20 @@ public class Player : Creature
   #region Fields & Properties
   [Export] public float FreezeTime = .5f;
 
-  public Action CurrentAction;
+  private Action _currentAction;
+  public Action CurrentAction
+  {
+    get { return _currentAction; }
+    set
+    {
+      _currentAction = value;
+      _zzz.Emitting = value == Action.Sleeping;
+    }
+  }
   private POI _poi;
   private List<POI> _poiQueue = new List<POI>();
   private Node2D _busyCloud;
+  private CPUParticles2D _zzz;
   public SanitySystem Sanity { get; private set; }
   public Inventory Inventory { get; private set; }
   protected override bool IsBusy
@@ -58,7 +68,9 @@ public class Player : Creature
     Sanity = GetNode<SanitySystem>("SanitySystem");
     Inventory = GetNode<Inventory>("Inventory");
     _busyCloud = GetNode<Node2D>("BusyCloud");
+    _zzz = GetNode<CPUParticles2D>("Zzz");
     IsBusy = false;
+    _zzz.Emitting = false;
     Global.Instance.Pet.Connect(nameof(Pet.Shouting), this, nameof(OnPetShouting));
   }
 
