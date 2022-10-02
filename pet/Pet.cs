@@ -53,12 +53,13 @@ public class Pet : Creature
   {
     var nodes = GetTree().GetNodesInGroup("pet-needs");
     var candidates = new List<PetPOI>();
-    foreach (var node in nodes)
+    foreach (Node node in nodes)
     {
-      if (node is PetPOI poi && poi.type == need.Type)
+      GD.Print($"checking poi node: {node.Name}, isPetPOI: {node is PetPOI}, type: {(node as PetPOI)?.Type}, want: {need.Type}");
+      if (node is PetPOI poi && poi.Type == need.Type)
       {
         candidates.Add(poi);
-        GD.Print($"pet poi candicate: {poi.Name} -> {System.Enum.GetName(typeof(NeedType), poi.type)}");
+        GD.Print($"pet poi candicate: {poi.Name} -> {System.Enum.GetName(typeof(NeedType), poi.Type)}");
       }
     }
     if (candidates.Count == 0)
@@ -89,7 +90,7 @@ public class Pet : Creature
     _isBusy = true;
     Stop();
     EmitSignal(nameof(Shouting), this);
-    await Task.Delay(TimeSpan.FromMilliseconds(.5f * 1000));
+    await Task.Delay(TimeSpan.FromSeconds(.5f));
     Think();
     _isBusy = false;
   }

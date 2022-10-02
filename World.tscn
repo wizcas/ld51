@@ -732,7 +732,6 @@ shape = SubResource( 70 )
 [node name="LitterBox" parent="walls" instance=ExtResource( 2 )]
 position = Vector2( 232, 72 )
 collision_mask = 6
-type = 20
 
 [node name="Bowls" type="Area2D" parent="walls" groups=["pet-needs"]]
 position = Vector2( 184, 144 )

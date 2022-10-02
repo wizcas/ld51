@@ -22,6 +22,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+Type = 2
 FullnessTextures = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ) ]
 
 [node name="Sprite" type="Sprite" parent="."]

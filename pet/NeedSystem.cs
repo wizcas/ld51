@@ -22,9 +22,9 @@ public class NeedSystem : Node
   }
 
   private List<NeedData> _needs = new List<NeedData>{
-    new NeedData(NeedType.Hunger){Increment=8,BoostChance=.5f},
-    new NeedData(NeedType.Love){Increment=10,BoostChance=.7f},
-    new NeedData(NeedType.Defecation){Increment=5,BoostChance=.4f},
+    new NeedData(NeedType.Hunger){Increment=8,BoostChance=.5f,HappinessDamage=10},
+    new NeedData(NeedType.Love){Increment=10,BoostChance=.7f,HappinessDamage=5},
+    new NeedData(NeedType.Defecation){Increment=5,BoostChance=.4f,HappinessDamage=20},
   };
   private Pet _pet;
 
@@ -51,7 +51,7 @@ public class NeedSystem : Node
     if (needs == null || needs.Count() <= 0) return;
     foreach (var need in needs)
     {
-      Happiness -= (int)need.Type;
+      Happiness -= (int)need.HappinessDamage;
     }
     await _pet.Shout();
   }
@@ -65,8 +65,8 @@ public class NeedSystem : Node
     var mostWanted = _needs.Where(n => n.Type != NeedType.Love).OrderByDescending(n => n.Value).Where(n => n.Value >= MIN_NEED_VALUE).ToArray();
     if (mostWanted.Length > 0)
     {
-      var rnd = (int)(GD.Randf() * mostWanted.Length);
-      _pet.FulfillNeed(mostWanted[rnd]);
+      // var rnd = (int)(GD.Randf() * mostWanted.Length);
+      _pet.FulfillNeed(mostWanted[0]);
     }
   }
 
@@ -93,7 +93,7 @@ public class NeedSystem : Node
 
 public enum NeedType
 {
-  Hunger = 10,
-  Love = 2,
-  Defecation = 20,
+  Hunger,
+  Love,
+  Defecation,
 }

@@ -12,6 +12,7 @@ public class NeedData
   public float BoostChance;
   public float BoostMultiplier = .5f;
   public float BoostRandomness = 1f;
+  public float HappinessDamage;
 
   private float _nextTickMs;
 
