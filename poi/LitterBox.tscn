@@ -1,7 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://poi/PetPOI.cs" type="Script" id=1]
+[ext_resource path="res://poi/LitterBox.cs" type="Script" id=1]
 [ext_resource path="res://assets/furnitures.png" type="Texture" id=2]
+[ext_resource path="res://poi/LitterBox2.tres" type="Texture" id=3]
+[ext_resource path="res://poi/LitterBox1.tres" type="Texture" id=4]
+[ext_resource path="res://poi/LitterBox0.tres" type="Texture" id=5]
+[ext_resource path="res://poi/LitterBox3.tres" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
@@ -18,7 +22,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-type = 3
+FullnessTextures = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ) ]
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = SubResource( 9 )

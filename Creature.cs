@@ -53,7 +53,7 @@ public abstract class Creature : KinematicBody2D
   #endregion
 
   #region Methods
-  public void Stop()
+  public virtual void Stop()
   {
     _isNavigating = false;
     _velocity = Vector2.Zero;

@@ -8,22 +8,18 @@ public class NeedSystem : Node
 {
   const int MIN_NEED_VALUE = 30;
   const int MAX_NEED_VALUE = 100;
-  const float ACTION_INTERVAL_MS = 10 * 1000;
   public float Happiness;
 
-  private float _nextActionTime = 0;
   private List<NeedData> _needs = new List<NeedData>{
-    new NeedData(NeedType.Hunger){Rate=5},
-    new NeedData(NeedType.Love){Rate=3},
-    new NeedData(NeedType.Cleanness){Rate=1},
-    new NeedData(NeedType.Defecation){Rate=2,Increment=10},
+    new NeedData(NeedType.Hunger){Rate=3},
+    new NeedData(NeedType.Love){Rate=2},
+    new NeedData(NeedType.Defecation){Rate=3,Increment=10},
   };
   private Pet _pet;
 
   public override void _Ready()
   {
     base._Ready();
-    _nextActionTime = OS.GetTicksMsec() + ACTION_INTERVAL_MS;
     _pet = GetParent<Pet>();
     Global.Instance.TenSec.Connect("timeout", this, nameof(OnTenSecTimeOut));
   }
@@ -35,34 +31,33 @@ public class NeedSystem : Node
     foreach (var need in _needs)
     {
       need.Process(delta);
-      if (need.Value >= MAX_NEED_VALUE)
-      {
-        Mad(need.Type);
-      }
-    }
-    if (OS.GetTicksMsec() >= _nextActionTime)
-    {
-      GD.Print("10 sec!");
-      _nextActionTime = OS.GetTicksMsec() + ACTION_INTERVAL_MS;
-      Act();
     }
   }
 
-  public void Mad(NeedType needType)
+  public async Task Mad(IEnumerable<NeedData> needs)
   {
-    // GD.Print("Mad of: ", Enum.GetName(typeof(NeedType), needType));
+    if (needs == null || needs.Count() <= 0) return;
+    foreach (var need in needs)
+    {
+      Happiness -= (int)need.Type;
+    }
+    await _pet.Shout();
   }
-  public void Act()
+  public async void Act()
   {
+    var madNeeds = _needs.Where(n => n.Value >= MAX_NEED_VALUE);
+    await Mad(madNeeds);
+
     var mostWanted = _needs.OrderByDescending(n => n.Value).Where(n => n.Value >= MIN_NEED_VALUE).ToArray();
     if (mostWanted.Length > 0)
     {
       var rnd = (int)(GD.Randf() * mostWanted.Length);
-      _pet.GoForNeed(mostWanted[rnd]);
+      _pet.FulfillNeed(mostWanted[rnd]);
     }
     else
     {
       GD.Print("no needs");
+      // TODO: randomly ask for love
     }
   }
 
@@ -77,14 +72,13 @@ public class NeedSystem : Node
 
   public void OnTenSecTimeOut()
   {
-    _pet.Shout();
+    Act();
   }
 }
 
 public enum NeedType
 {
-  Hunger,
-  Love,
-  Cleanness,
-  Defecation,
+  Hunger = 10,
+  Love = 2,
+  Defecation = 20,
 }

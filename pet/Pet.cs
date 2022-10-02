@@ -11,6 +11,7 @@ public class Pet : Creature
 
   public NeedSystem Needs { get; private set; }
   private WanderingArea _wanderingArea;
+  private float _nextActionTime;
   #endregion
 
   #region Hooks
@@ -32,19 +33,21 @@ public class Pet : Creature
   public override void _Process(float delta)
   {
     base._Process(delta);
-    if (_wanderingArea != null && !_isNavigating && !_isBusy)
+    if (_wanderingArea != null && !_isNavigating && !_isFrozen && !_isBusy && OS.GetTicksMsec() > _nextActionTime)
     {
       var location = _wanderingArea.GetRandomLocation();
       if (location.HasValue)
       {
+        GD.Print("next wander location @ ", location.Value);
         SetNavTarget(location.Value);
+        location = null;
       }
     }
   }
   #endregion
 
   #region Methods
-  public void GoForNeed(NeedData need)
+  public void FulfillNeed(NeedData need)
   {
     var nodes = GetTree().GetNodesInGroup("pet-needs");
     var candidates = new List<PetPOI>();
@@ -53,6 +56,7 @@ public class Pet : Creature
       if (node is PetPOI poi && poi.type == need.Type)
       {
         candidates.Add(poi);
+        GD.Print($"pet poi candicate: {poi.Name} -> {System.Enum.GetName(typeof(NeedType), poi.type)}");
       }
     }
     if (candidates.Count == 0)
@@ -64,10 +68,11 @@ public class Pet : Creature
     {
       var rnd = (int)(GD.Randf() * candidates.Count);
       var poi = candidates[rnd];
+      GD.Print($"pet is going to POI: {poi.Name} @ {poi.GetDestination(this)}");
       SetNavTarget(poi.GetDestination(this));
+      Think();
     }
   }
-
   public async override Task Interact(POI poi)
   {
     _isBusy = true;
@@ -77,13 +82,25 @@ public class Pet : Creature
     CancelForceMove();
     _isBusy = false;
   }
-  public async void Shout()
+  public async Task Shout()
   {
     _isBusy = true;
     Stop();
     EmitSignal(nameof(Shouting), this);
     await Task.Delay(TimeSpan.FromMilliseconds(.5f * 1000));
+    Think();
     _isBusy = false;
+  }
+  public override void Stop()
+  {
+    base.Stop();
+    Think();
+  }
+
+  public void Think()
+  {
+    if (_isNavigating) return;
+    _nextActionTime = OS.GetTicksMsec() + 1000;
   }
   #endregion
 }
