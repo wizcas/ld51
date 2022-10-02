@@ -1,11 +1,11 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://gui/HUD.cs" type="Script" id=1]
 [ext_resource path="res://gui/Meow.cs" type="Script" id=2]
 [ext_resource path="res://assets/meow.png" type="Texture" id=3]
 [ext_resource path="res://assets/clock-under.png" type="Texture" id=4]
 [ext_resource path="res://assets/clock-progress.png" type="Texture" id=5]
-[ext_resource path="res://assets/icons.png" type="Texture" id=6]
+[ext_resource path="res://assets/fonts/orange kid.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://gui/RoundTime.cs" type="Script" id=7]
 [ext_resource path="res://assets/fonts/pixel-ultima-regular.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://assets/progress-bar-bg.png" type="Texture" id=9]
@@ -29,6 +29,7 @@
 [ext_resource path="res://gui/SuccessScreen.cs" type="Script" id=27]
 [ext_resource path="res://assets/main-title.png" type="Texture" id=28]
 [ext_resource path="res://gui/EndScreen.cs" type="Script" id=29]
+[ext_resource path="res://assets/icons.png" type="Texture" id=30]
 
 [sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 14 )
@@ -49,24 +50,28 @@ size = 14
 font_data = ExtResource( 8 )
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 30 )
 region = Rect2( 0, 96, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 30 )
 region = Rect2( 0, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 30 )
 region = Rect2( 0, 32, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 30 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="DynamicFont" id=11]
 size = 36
 font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 24
+font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=10]
 size = 48
@@ -426,7 +431,7 @@ script = ExtResource( 2 )
 pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.0608, 0.0971733, 0.16, 1 )
+color = Color( 0.0627451, 0.0980392, 0.160784, 1 )
 script = ExtResource( 22 )
 
 [node name="StartButton" type="Button" parent="StartScreen"]
@@ -454,27 +459,27 @@ rect_pivot_offset = Vector2( 128, 32 )
 texture = ExtResource( 28 )
 
 [node name="PressToStart" type="Label" parent="StartScreen"]
-margin_left = 538.0
-margin_top = 211.0
-margin_right = 888.0
-margin_bottom = 248.0
+margin_left = 547.0
+margin_top = 167.0
+margin_right = 897.0
+margin_bottom = 204.0
 custom_colors/font_color = Color( 0.45098, 0.45098, 0.45098, 1 )
 custom_fonts/font = SubResource( 11 )
 text = "Press SPACE to start"
 
 [node name="Label" type="Label" parent="StartScreen"]
 margin_left = 46.0
-margin_top = 211.0
+margin_top = 167.0
 margin_right = 117.0
-margin_bottom = 248.0
+margin_bottom = 204.0
 custom_fonts/font = SubResource( 11 )
 text = "Goal"
 
 [node name="Label2" type="Label" parent="StartScreen"]
 margin_left = 46.0
-margin_top = 257.0
+margin_top = 221.0
 margin_right = 388.0
-margin_bottom = 394.0
+margin_bottom = 358.0
 custom_fonts/font = ExtResource( 26 )
 text = "You've got only 5 minutes
 up to the LD Compo deadline!
@@ -483,10 +488,10 @@ Take care of your cat and get
 your job done."
 
 [node name="Label4" type="Label" parent="StartScreen"]
-margin_left = 461.0
-margin_top = 358.0
-margin_right = 906.0
-margin_bottom = 495.0
+margin_left = 480.0
+margin_top = 304.0
+margin_right = 925.0
+margin_bottom = 469.0
 custom_fonts/font = ExtResource( 26 )
 text = "Your cat will need something every 10 seconds. Fullfil his needs or you'll take serious sanity damage by his MEOWs.
 
@@ -494,29 +499,40 @@ Sleeping can recover sanity."
 autowrap = true
 
 [node name="Label3" type="Label" parent="StartScreen"]
-margin_left = 461.0
-margin_top = 302.0
-margin_right = 532.0
-margin_bottom = 339.0
+margin_left = 480.0
+margin_top = 248.0
+margin_right = 690.0
+margin_bottom = 285.0
 custom_fonts/font = SubResource( 11 )
 text = "Don't go mad"
 
 [node name="Label5" type="Label" parent="StartScreen"]
 margin_left = 46.0
-margin_top = 425.0
+margin_top = 402.0
 margin_right = 294.0
-margin_bottom = 462.0
+margin_bottom = 439.0
 custom_fonts/font = SubResource( 11 )
 text = "How to control"
 
 [node name="Label6" type="Label" parent="StartScreen"]
 margin_left = 46.0
-margin_top = 471.0
+margin_top = 458.0
 margin_right = 384.0
-margin_bottom = 524.0
+margin_bottom = 511.0
 custom_fonts/font = ExtResource( 26 )
 text = "Just use your mouse to click 
 around."
+
+[node name="Label7" type="Label" parent="StartScreen"]
+margin_left = 667.0
+margin_top = 494.0
+margin_right = 937.0
+margin_bottom = 524.0
+custom_colors/font_color = Color( 0.929412, 0.341176, 0.227451, 1 )
+custom_fonts/font = SubResource( 12 )
+text = "Made by Wizcas for Ludum Dare 51"
+align = 2
+valign = 2
 
 [node name="EndingSuccess" type="ColorRect" parent="."]
 pause_mode = 2

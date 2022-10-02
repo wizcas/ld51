@@ -63,13 +63,13 @@ public class Global : Node
     if (TimeLeft > 0)
     {
       TimeLeft = Mathf.Max(TimeLeft - delta, 0);
-      if (TimeLeft < 60)
-      {
-        _bgm.PitchScale = 1.2f;
-      }
-      else if (TimeLeft < 10)
+      if (TimeLeft < 10)
       {
         _bgm.PitchScale = 1.5f;
+      }
+      else if (TimeLeft < 60)
+      {
+        _bgm.PitchScale = 1.2f;
       }
       else
       {
