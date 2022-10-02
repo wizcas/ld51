@@ -6,9 +6,20 @@ using Godot;
 
 public class NeedSystem : Node
 {
+  [Signal] public delegate void HappinessChanged(int happiness);
   const int MIN_NEED_VALUE = 30;
   const int MAX_NEED_VALUE = 100;
-  public float Happiness;
+
+  private float _happiness = 100;
+  public float Happiness
+  {
+    get => _happiness;
+    set
+    {
+      _happiness = Mathf.Clamp(value, 0, 100);
+      EmitSignal(nameof(HappinessChanged), (int)_happiness);
+    }
+  }
 
   private List<NeedData> _needs = new List<NeedData>{
     new NeedData(NeedType.Hunger){Rate=3},
@@ -22,6 +33,7 @@ public class NeedSystem : Node
     base._Ready();
     _pet = GetParent<Pet>();
     Global.Instance.TenSec.Connect("timeout", this, nameof(OnTenSecTimeOut));
+    Happiness = 100;
   }
 
   public override void _Process(float delta)
@@ -73,6 +85,11 @@ public class NeedSystem : Node
   public void OnTenSecTimeOut()
   {
     Act();
+  }
+
+  public NeedData GetNeed(NeedType type)
+  {
+    return _needs.FirstOrDefault(n => n.Type == type);
   }
 }
 

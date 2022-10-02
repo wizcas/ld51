@@ -32,12 +32,15 @@ public class SanitySystem : Node
     {
       case Player.Action.Working:
         Sanity -= SanityWorkLossRate * delta;
-        WorkProgress += WorkGainRate;
+        WorkProgress += WorkGainRate * delta;
         break;
       case Player.Action.Sleeping:
         Sanity += SanitySleepGainRate * delta;
         break;
     }
+    Sanity = Mathf.Clamp(Sanity, 0, MaxSanity);
+    WorkProgress = Mathf.Clamp(WorkProgress, 0, MaxWorkProgress);
+
     EmitSignal(nameof(SanityChanged), Sanity, MaxSanity);
     EmitSignal(nameof(WorkProgressChanged), WorkProgress, MaxWorkProgress);
 

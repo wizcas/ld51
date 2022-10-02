@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://gui/HUD.cs" type="Script" id=1]
 [ext_resource path="res://gui/Meow.cs" type="Script" id=2]
@@ -14,6 +14,13 @@
 [ext_resource path="res://gui/GameInfo.cs" type="Script" id=12]
 [ext_resource path="res://assets/LD51.png" type="Texture" id=13]
 [ext_resource path="res://assets/fonts/pixel-ultima-bold.ttf" type="DynamicFontData" id=14]
+[ext_resource path="res://assets/mood-normal.tres" type="Texture" id=15]
+[ext_resource path="res://gui/HappinessMeter.cs" type="Script" id=16]
+[ext_resource path="res://assets/mood-sad.tres" type="Texture" id=17]
+[ext_resource path="res://assets/mood-angry.tres" type="Texture" id=18]
+[ext_resource path="res://assets/mood-happy.tres" type="Texture" id=19]
+[ext_resource path="res://gui/NeedMeter.cs" type="Script" id=20]
+[ext_resource path="res://gui/SanityMeter.cs" type="Script" id=21]
 
 [sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 14 )
@@ -196,7 +203,7 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -114.0
+margin_left = -122.0
 margin_top = -266.5
 margin_bottom = 266.5
 grow_horizontal = 0
@@ -209,9 +216,10 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -8.0
+custom_constants/separation = 16
 
 [node name="Sanity" type="HBoxContainer" parent="HUD/Meters/VBoxContainer"]
-margin_right = 104.0
+margin_right = 106.0
 margin_bottom = 32.0
 
 [node name="TextureRect" type="TextureRect" parent="HUD/Meters/VBoxContainer/Sanity"]
@@ -222,7 +230,7 @@ texture = SubResource( 5 )
 [node name="SanityMeter" type="TextureProgress" parent="HUD/Meters/VBoxContainer/Sanity"]
 margin_left = 36.0
 margin_top = 12.0
-margin_right = 104.0
+margin_right = 106.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -237,22 +245,23 @@ stretch_margin_left = 4
 stretch_margin_top = 4
 stretch_margin_right = 4
 stretch_margin_bottom = 4
+script = ExtResource( 21 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/Meters/VBoxContainer"]
-margin_top = 36.0
-margin_right = 104.0
-margin_bottom = 517.0
+margin_top = 48.0
+margin_right = 106.0
+margin_bottom = 401.0
 size_flags_vertical = 3
 
 [node name="Love" type="VBoxContainer" parent="HUD/Meters/VBoxContainer/HBoxContainer"]
 margin_right = 32.0
-margin_bottom = 481.0
+margin_bottom = 353.0
 alignment = 2
 
 [node name="LoveMeter" type="TextureProgress" parent="HUD/Meters/VBoxContainer/HBoxContainer/Love"]
 margin_left = 12.0
 margin_right = 20.0
-margin_bottom = 445.0
+margin_bottom = 317.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
 value = 50.0
@@ -268,23 +277,25 @@ stretch_margin_left = 4
 stretch_margin_top = 4
 stretch_margin_right = 4
 stretch_margin_bottom = 4
+script = ExtResource( 20 )
+Type = 2
 
 [node name="TextureRect" type="TextureRect" parent="HUD/Meters/VBoxContainer/HBoxContainer/Love"]
-margin_top = 449.0
+margin_top = 321.0
 margin_right = 32.0
-margin_bottom = 481.0
+margin_bottom = 353.0
 texture = SubResource( 6 )
 
 [node name="Food" type="VBoxContainer" parent="HUD/Meters/VBoxContainer/HBoxContainer"]
 margin_left = 36.0
 margin_right = 68.0
-margin_bottom = 481.0
+margin_bottom = 353.0
 alignment = 2
 
 [node name="FoodMeter" type="TextureProgress" parent="HUD/Meters/VBoxContainer/HBoxContainer/Food"]
 margin_left = 12.0
 margin_right = 20.0
-margin_bottom = 445.0
+margin_bottom = 317.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
 value = 50.0
@@ -300,23 +311,24 @@ stretch_margin_left = 4
 stretch_margin_top = 4
 stretch_margin_right = 4
 stretch_margin_bottom = 4
+script = ExtResource( 20 )
 
 [node name="TextureRect" type="TextureRect" parent="HUD/Meters/VBoxContainer/HBoxContainer/Food"]
-margin_top = 449.0
+margin_top = 321.0
 margin_right = 32.0
-margin_bottom = 481.0
+margin_bottom = 353.0
 texture = SubResource( 7 )
 
 [node name="Poop" type="VBoxContainer" parent="HUD/Meters/VBoxContainer/HBoxContainer"]
 margin_left = 72.0
 margin_right = 104.0
-margin_bottom = 481.0
+margin_bottom = 353.0
 alignment = 2
 
 [node name="PoopMeter" type="TextureProgress" parent="HUD/Meters/VBoxContainer/HBoxContainer/Poop"]
 margin_left = 12.0
 margin_right = 20.0
-margin_bottom = 445.0
+margin_bottom = 317.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
 value = 50.0
@@ -332,12 +344,22 @@ stretch_margin_left = 4
 stretch_margin_top = 4
 stretch_margin_right = 4
 stretch_margin_bottom = 4
+script = ExtResource( 20 )
+Type = 20
 
 [node name="TextureRect" type="TextureRect" parent="HUD/Meters/VBoxContainer/HBoxContainer/Poop"]
-margin_top = 449.0
+margin_top = 321.0
 margin_right = 32.0
-margin_bottom = 481.0
+margin_bottom = 353.0
 texture = SubResource( 8 )
+
+[node name="HappinessMeter" type="TextureRect" parent="HUD/Meters/VBoxContainer"]
+margin_top = 417.0
+margin_right = 106.0
+margin_bottom = 517.0
+texture = ExtResource( 15 )
+script = ExtResource( 16 )
+Textures = [ ExtResource( 15 ), ExtResource( 19 ), ExtResource( 17 ), ExtResource( 18 ) ]
 
 [node name="Meow" type="TextureRect" parent="."]
 anchor_left = 0.5
