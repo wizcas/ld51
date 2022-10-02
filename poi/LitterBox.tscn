@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://poi/PetPOI.cs" type="Script" id=1]
-[ext_resource path="res://assets/poc-world.png" type="Texture" id=2]
+[ext_resource path="res://assets/furnitures.png" type="Texture" id=2]
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
-region = Rect2( 32, 0, 16, 16 )
+region = Rect2( 32, 32, 16, 16 )
 
 [sub_resource type="CircleShape2D" id=11]
 radius = 16.0
