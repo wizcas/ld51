@@ -50,7 +50,7 @@ public class NeedSystem : Node
 
   public void Mad(NeedType needType)
   {
-    GD.Print("Mad of: ", Enum.GetName(typeof(NeedType), needType));
+    // GD.Print("Mad of: ", Enum.GetName(typeof(NeedType), needType));
   }
   public void Act()
   {

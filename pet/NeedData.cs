@@ -28,7 +28,7 @@ public class NeedData
     {
       Value += Increment;
       UpdateNextTick();
-      GD.Print($"[{Name}] clear! => {Value}");
+      GD.Print($"[{Name}] => {Value}");
     }
   }
   public async Task WaitClear(float duration)

@@ -5,7 +5,7 @@
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
-region = Rect2( 32, 32, 16, 16 )
+region = Rect2( 48, 32, 16, 16 )
 
 [sub_resource type="CircleShape2D" id=11]
 radius = 16.0
@@ -24,6 +24,10 @@ type = 3
 texture = SubResource( 9 )
 
 [node name="PetAttach" type="Position2D" parent="."]
+position = Vector2( 0, 1 )
+
+[node name="SlaveAttach" type="Position2D" parent="."]
+position = Vector2( 0, -8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 5 )
