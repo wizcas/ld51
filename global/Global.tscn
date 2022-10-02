@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://global/ArrowMarker.tscn" type="PackedScene" id=1]
 [ext_resource path="res://global/Global.cs" type="Script" id=2]
 [ext_resource path="res://global/GlobalTimer.cs" type="Script" id=3]
 [ext_resource path="res://gui/GameGUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/bgm/bgm.mp3" type="AudioStream" id=5]
 
 [node name="Global" type="Node"]
 script = ExtResource( 2 )
@@ -16,3 +17,7 @@ position = Vector2( 143, 187 )
 [node name="10s" type="Timer" parent="."]
 wait_time = 10.0
 script = ExtResource( 3 )
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -4.0

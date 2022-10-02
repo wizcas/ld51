@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Godot;
 
 public class Global : Node
@@ -25,6 +27,7 @@ public class Global : Node
   public readonly Vector2 PetSpawn = new Vector2(152, 119);
 
   private Control[] EndScreens => new[] { SuccessScreen, CrazyEndScreen, FailedEndScreen };
+  private AudioStreamPlayer _bgm;
 
   public override void _EnterTree()
   {
@@ -37,6 +40,7 @@ public class Global : Node
     SuccessScreen = GetNode<SuccessScreen>("GameGUI/EndingSuccess");
     CrazyEndScreen = GetNode<Control>("GameGUI/EndingCrazy");
     FailedEndScreen = GetNode<Control>("GameGUI/EndingFailed");
+    _bgm = GetNode<AudioStreamPlayer>("BGM");
   }
 
   public override void _Ready()
@@ -56,8 +60,27 @@ public class Global : Node
   public override void _Process(float delta)
   {
     base._Process(delta);
-    if (TimeLeft > 0) TimeLeft = Mathf.Max(TimeLeft - delta, 0);
-    else GameOver(Ending.MissDeadline);
+    if (TimeLeft > 0)
+    {
+      TimeLeft = Mathf.Max(TimeLeft - delta, 0);
+      if (TimeLeft < 60)
+      {
+        _bgm.PitchScale = 1.2f;
+      }
+      else if (TimeLeft < 10)
+      {
+        _bgm.PitchScale = 1.5f;
+      }
+      else
+      {
+        _bgm.PitchScale = 1;
+      }
+
+    }
+    else
+    {
+      GameOver(Ending.MissDeadline);
+    }
   }
 
   public void StartGame()
@@ -67,17 +90,22 @@ public class Global : Node
     StartScreen.Hide();
     GetTree().Paused = false;
     TenSec.Start();
+    _bgm.Seek(0);
+    _bgm.Play();
   }
 
-  public void Restart()
+  public async void Restart()
   {
+    _bgm.Stop();
     GetTree().Paused = true;
+    await Task.Delay(TimeSpan.FromSeconds(.5));
     HideEndScreens();
     StartScreen.Show();
   }
 
   public void GameOver(Ending ending)
   {
+    _bgm.Stop();
     GD.Print("Game Over: ", System.Enum.GetName(typeof(Ending), ending));
     TenSec.Stop();
     GetTree().Paused = true;
