@@ -33,11 +33,12 @@ public class Bowls : PetPOI
 
   protected override async Task PetEnter(Pet pet)
   {
-    await base.PetEnter(pet);
     if (_food != null)
     {
+      pet.PlaySound(PetSound.Eat, WorkTime);
+      await base.PetEnter(pet);
       pet.Needs.Happiness += _food.Happiness + HappinessGain;
-      Fullness--;
+      if (--Fullness <= 0) _food = null;
     }
   }
 

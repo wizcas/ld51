@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/eat-wet.mp3-dd9ae68c7ed308071a52767d22511fa7.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/eat-wet.mp3"
+dest_files=[ "res://.import/eat-wet.mp3-dd9ae68c7ed308071a52767d22511fa7.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

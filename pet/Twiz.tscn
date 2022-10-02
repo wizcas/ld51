@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/twiz.png" type="Texture" id=1]
 [ext_resource path="res://pet/Pet.cs" type="Script" id=2]
@@ -6,6 +6,10 @@
 [ext_resource path="res://poi/Pat.cs" type="Script" id=4]
 [ext_resource path="res://assets/icons.png" type="Texture" id=5]
 [ext_resource path="res://assets/bubble.png" type="Texture" id=6]
+[ext_resource path="res://assets/sfx/meow1.mp3" type="AudioStream" id=7]
+[ext_resource path="res://assets/sfx/eat-wet.mp3" type="AudioStream" id=8]
+[ext_resource path="res://assets/sfx/meow2.mp3" type="AudioStream" id=9]
+[ext_resource path="res://assets/sfx/purr.mp3" type="AudioStream" id=10]
 
 [sub_resource type="CapsuleShape2D" id=12]
 radius = 2.0
@@ -38,6 +42,9 @@ collision/safe_margin = 4.0
 script = ExtResource( 2 )
 Speed = 64.0
 WanderingAreaNode = NodePath("../WanderingArea")
+ShoutSounds = [ ExtResource( 7 ), ExtResource( 9 ) ]
+EatSound = ExtResource( 8 )
+PurrSound = ExtResource( 10 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -6 )
@@ -90,3 +97,7 @@ initial_velocity_random = 0.2
 scale_amount = 0.1
 scale_amount_random = 0.2
 color_ramp = SubResource( 15 )
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+attenuation = 4.26105e-05

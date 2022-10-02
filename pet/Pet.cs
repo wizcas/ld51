@@ -9,6 +9,9 @@ public class Pet : Creature
   [Signal] public delegate void Shouting(Pet pet);
   [Export] NodePath WanderingAreaNode;
   [Export] public float ShoutTime = .5f;
+  [Export] public AudioStreamMP3[] ShoutSounds;
+  [Export] public AudioStreamMP3 EatSound;
+  [Export] public AudioStreamMP3 PurrSound;
 
   public NeedSystem Needs { get; private set; }
   private WanderingArea _wanderingArea;
@@ -88,9 +91,7 @@ public class Pet : Creature
   {
     if (Needs.MostWanted != null && Needs.MostWanted.IsUnbearable)
     {
-      await Needs.Mad(new[] {
-        Needs.MostWanted
-      });
+      await Needs.Mad(new[] { Needs.MostWanted });
     }
   }
   public async Task Shout()
@@ -98,6 +99,7 @@ public class Pet : Creature
     IsBusy = true;
     Stop();
     EmitSignal(nameof(Shouting), this);
+    PlaySound(PetSound.Shout);
     await Task.Delay(TimeSpan.FromSeconds(ShoutTime));
     Think();
     IsBusy = false;
@@ -114,9 +116,45 @@ public class Pet : Creature
     _nextActionTime = OS.GetTicksMsec() + 1000;
   }
 
+  public async void PlaySound(PetSound sound, float duration = 0)
+  {
+    var audio = GetNode<AudioStreamPlayer2D>("Sound");
+    AudioStreamMP3 stream = null;
+    switch (sound)
+    {
+      case PetSound.Eat:
+        stream = EatSound;
+        break;
+      case PetSound.Purr:
+        stream = PurrSound;
+        break;
+      case PetSound.Shout:
+        stream = ShoutSounds[(int)(GD.Randf() * ShoutSounds.Length)];
+        break;
+    }
+    GD.Print("play sound: ", sound, " ", stream);
+    if (stream != null)
+    {
+      var length = stream.GetLength();
+      audio.Stop();
+      audio.Stream = stream;
+      audio.Seek(0);
+      audio.Play();
+    }
+  }
+
   public void Love(bool on)
   {
     _loveFX.Emitting = on;
   }
   #endregion
+}
+
+public enum PetSound
+{
+  None,
+  Shout,
+  Eat,
+  Purr,
+  Poop,
 }
