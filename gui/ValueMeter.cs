@@ -5,7 +5,7 @@ public abstract class ValueMeter : TextureProgress
   public override void _Process(float delta)
   {
     base._Process(delta);
-    if (HasValue()) Value = GetMeterValue();
+    if (HasValue()) Value = MaxValue - GetMeterValue();
   }
 
   protected abstract bool HasValue();
