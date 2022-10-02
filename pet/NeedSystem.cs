@@ -7,7 +7,6 @@ using Godot;
 public class NeedSystem : Node
 {
   [Signal] public delegate void HappinessChanged(int happiness);
-  internal const int MIN_NEED_VALUE = 30;
   internal const int MAX_NEED_VALUE = 100;
 
   private float _happiness = 100;
@@ -63,8 +62,8 @@ public class NeedSystem : Node
     var urgentNeeds = _needs.Where(n => n.Type != NeedType.Love).OrderByDescending(n => n.Value).Where(n => n.IsUnbearable).ToArray();
     if (urgentNeeds.Length > 0)
     {
-      // var rnd = (int)(GD.Randf() * mostWanted.Length);
-      var mostWanted = urgentNeeds[0];
+      var rnd = (int)(GD.Randf() * urgentNeeds.Length);
+      var mostWanted = urgentNeeds[rnd];
       _pet.FulfillNeed(mostWanted);
       MostWanted = mostWanted;
     }
