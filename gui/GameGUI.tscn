@@ -40,10 +40,6 @@ font_data = ExtResource( 8 )
 size = 14
 font_data = ExtResource( 8 )
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 32, 32 )
-
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 6 )
 region = Rect2( 0, 96, 32, 32 )
@@ -55,6 +51,10 @@ region = Rect2( 0, 64, 32, 32 )
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 6 )
 region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 32, 32 )
 
 [node name="GameGUI" type="CanvasLayer"]
 
@@ -204,7 +204,7 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_left = -122.0
-margin_top = -266.5
+margin_top = -218.5
 margin_bottom = 266.5
 grow_horizontal = 0
 color = Color( 0.168627, 0.180392, 0.2, 0.784314 )
@@ -218,39 +218,9 @@ margin_right = -8.0
 margin_bottom = -8.0
 custom_constants/separation = 16
 
-[node name="Sanity" type="HBoxContainer" parent="HUD/Meters/VBoxContainer"]
-margin_right = 106.0
-margin_bottom = 32.0
-
-[node name="TextureRect" type="TextureRect" parent="HUD/Meters/VBoxContainer/Sanity"]
-margin_right = 32.0
-margin_bottom = 32.0
-texture = SubResource( 5 )
-
-[node name="SanityMeter" type="TextureProgress" parent="HUD/Meters/VBoxContainer/Sanity"]
-margin_left = 36.0
-margin_top = 12.0
-margin_right = 106.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-size_flags_vertical = 4
-value = 50.0
-texture_under = ExtResource( 9 )
-texture_over = ExtResource( 11 )
-texture_progress = ExtResource( 10 )
-tint_under = Color( 0.235294, 0.235294, 0.235294, 1 )
-tint_over = Color( 0.713726, 0.184314, 0.376471, 1 )
-nine_patch_stretch = true
-stretch_margin_left = 4
-stretch_margin_top = 4
-stretch_margin_right = 4
-stretch_margin_bottom = 4
-script = ExtResource( 21 )
-
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/Meters/VBoxContainer"]
-margin_top = 48.0
 margin_right = 106.0
-margin_bottom = 401.0
+margin_bottom = 353.0
 size_flags_vertical = 3
 
 [node name="Love" type="VBoxContainer" parent="HUD/Meters/VBoxContainer/HBoxContainer"]
@@ -354,12 +324,53 @@ margin_bottom = 353.0
 texture = SubResource( 8 )
 
 [node name="HappinessMeter" type="TextureRect" parent="HUD/Meters/VBoxContainer"]
-margin_top = 417.0
+margin_top = 369.0
 margin_right = 106.0
-margin_bottom = 517.0
+margin_bottom = 469.0
 texture = ExtResource( 15 )
 script = ExtResource( 16 )
 Textures = [ ExtResource( 15 ), ExtResource( 19 ), ExtResource( 17 ), ExtResource( 18 ) ]
+
+[node name="PlayerMeter" type="ColorRect" parent="HUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -231.0
+margin_bottom = 48.0
+rect_pivot_offset = Vector2( 1656, -153 )
+color = Color( 0.168627, 0.180392, 0.2, 0.784314 )
+
+[node name="Sanity" type="HBoxContainer" parent="HUD/PlayerMeter"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="TextureRect" type="TextureRect" parent="HUD/PlayerMeter/Sanity"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 5 )
+
+[node name="SanityMeter" type="TextureProgress" parent="HUD/PlayerMeter/Sanity"]
+margin_left = 36.0
+margin_top = 8.0
+margin_right = 215.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+texture_under = ExtResource( 9 )
+texture_over = ExtResource( 11 )
+texture_progress = ExtResource( 10 )
+tint_under = Color( 0.235294, 0.235294, 0.235294, 1 )
+tint_over = Color( 0.713726, 0.184314, 0.376471, 1 )
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+script = ExtResource( 21 )
 
 [node name="Meow" type="TextureRect" parent="."]
 anchor_left = 0.5
