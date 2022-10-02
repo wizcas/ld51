@@ -4,6 +4,10 @@ public class Global : Node
 {
   public static Global Instance => ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Global>("Global");
 
+  [Export] public float TotalTime = 600;
+
+  public float TimeLeft;
+
   public ArrowMarker Arrow { get; private set; }
   public Player Player;
   public Pet Pet;
@@ -19,6 +23,24 @@ public class Global : Node
     TenSec = GetNode<GlobalTimer>("10s");
     HUD = GetNode<HUD>("GameGUI/HUD");
     Meow = GetNode<Meow>("GameGUI/Meow");
+  }
+
+  public override void _Ready()
+  {
+    base._Ready();
+    StartGame();
+  }
+
+  public override void _Process(float delta)
+  {
+    base._Process(delta);
+    if (TimeLeft > 0)
+      TimeLeft = Mathf.Max(TimeLeft - delta, 0);
+  }
+
+  public void StartGame()
+  {
+    TimeLeft = TotalTime;
   }
 
   public void GameOver(Ending ending)

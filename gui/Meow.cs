@@ -56,12 +56,12 @@ public class Meow : Control
     if (pos.x <= center.x)
     {
       RectRotation = Mathf.Rad2Deg((center - pos).Normalized().Angle());
-      RectPivotOffset = new Vector2(0, RectSize.y / 2);
+      // RectPivotOffset = new Vector2(0, RectSize.y / 2);
     }
     else
     {
       RectRotation = Mathf.Rad2Deg((pos - center).Normalized().Angle());
-      RectPivotOffset = new Vector2(RectSize.x, RectSize.y / 2);
+      // RectPivotOffset = new Vector2(RectSize.x, RectSize.y / 2);
     }
   }
   #endregion

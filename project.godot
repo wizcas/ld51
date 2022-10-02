@@ -18,6 +18,13 @@ config/icon="res://icon.png"
 
 Global="*res://global/Global.tscn"
 
+[display]
+
+window/size/width=948
+window/size/height=533
+window/size/resizable=false
+window/stretch/aspect="keep"
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

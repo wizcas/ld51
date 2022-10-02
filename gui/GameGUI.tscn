@@ -1,7 +1,53 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://gui/HUD.cs" type="Script" id=1]
 [ext_resource path="res://gui/Meow.cs" type="Script" id=2]
+[ext_resource path="res://assets/meow.png" type="Texture" id=3]
+[ext_resource path="res://assets/clock-under.png" type="Texture" id=4]
+[ext_resource path="res://assets/clock-progress.png" type="Texture" id=5]
+[ext_resource path="res://assets/icons.png" type="Texture" id=6]
+[ext_resource path="res://gui/RoundTime.cs" type="Script" id=7]
+[ext_resource path="res://assets/fonts/pixel-ultima-regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://assets/progress-bar-bg.png" type="Texture" id=9]
+[ext_resource path="res://assets/progress-bar-fill.png" type="Texture" id=10]
+[ext_resource path="res://assets/progress-bar-border.png" type="Texture" id=11]
+[ext_resource path="res://gui/GameInfo.cs" type="Script" id=12]
+[ext_resource path="res://assets/LD51.png" type="Texture" id=13]
+[ext_resource path="res://assets/fonts/pixel-ultima-bold.ttf" type="DynamicFontData" id=14]
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 24
+font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 36
+font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 14
+font_data = ExtResource( 8 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 32, 32, 32 )
 
 [node name="GameGUI" type="CanvasLayer"]
 
@@ -11,30 +57,297 @@ anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 1 )
 
-[node name="NextRoundTime" type="Control" parent="HUD"]
+[node name="Top" type="ColorRect" parent="HUD"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -35.5
-margin_right = 35.5
-margin_bottom = 18.0
-mouse_filter = 2
+margin_left = -130.0
+margin_right = 153.0
+margin_bottom = 125.0
+color = Color( 0.168627, 0.180392, 0.2, 0.784314 )
 
-[node name="Label" type="Label" parent="HUD/NextRoundTime"]
+[node name="GameInfo" type="HBoxContainer" parent="HUD/Top"]
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -114.5
+margin_top = -42.5
+margin_right = 114.5
+margin_bottom = 42.5
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+script = ExtResource( 12 )
+DeadLineNode = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/Deadline")
+WorkProgressNode = NodePath("VBoxContainer/HBoxContainer2/WorkProgress")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Top/GameInfo"]
+margin_right = 233.0
+margin_bottom = 95.0
+size_flags_horizontal = 3
+custom_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Top/GameInfo/VBoxContainer"]
+margin_right = 233.0
+margin_bottom = 64.0
+custom_constants/separation = 8
+
+[node name="LD" type="TextureRect" parent="HUD/Top/GameInfo/VBoxContainer/HBoxContainer"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 13 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Top/GameInfo/VBoxContainer/HBoxContainer"]
+margin_left = 72.0
+margin_right = 161.0
+margin_bottom = 64.0
+alignment = 1
+
+[node name="Compo Ends" type="Label" parent="HUD/Top/GameInfo/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 9.0
+margin_right = 89.0
+margin_bottom = 25.0
+custom_fonts/font = SubResource( 3 )
+text = "Compo Ends"
+align = 1
+
+[node name="Deadline" type="Label" parent="HUD/Top/GameInfo/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 29.0
+margin_right = 89.0
+margin_bottom = 54.0
+custom_fonts/font = SubResource( 4 )
+text = "10:00"
+align = 1
+valign = 1
+
+[node name="RoundTime" type="TextureProgress" parent="HUD/Top/GameInfo/VBoxContainer/HBoxContainer"]
+margin_left = 169.0
+margin_right = 233.0
+margin_bottom = 64.0
+size_flags_vertical = 4
+max_value = 10.0
+step = 0.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 5 )
+fill_mode = 4
+script = ExtResource( 7 )
+
+[node name="Second" type="Label" parent="HUD/Top/GameInfo/VBoxContainer/HBoxContainer/RoundTime"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 margin_left = -22.0
+margin_top = -26.0
 margin_right = 22.0
-margin_bottom = 14.0
-rect_scale = Vector2( 3, 3 )
-text = "10.000"
+margin_bottom = 11.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "10"
 align = 1
+valign = 1
 
-[node name="Meow" type="Label" parent="."]
-margin_right = 50.0
-margin_bottom = 14.0
-rect_scale = Vector2( 5, 5 )
-rect_pivot_offset = Vector2( 0, 6 )
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-text = "Meow!!!"
+[node name="Ms" type="Label" parent="HUD/Top/GameInfo/VBoxContainer/HBoxContainer/RoundTime"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = 8.0
+margin_right = 24.0
+margin_bottom = 24.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "123"
 align = 1
+valign = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/Top/GameInfo/VBoxContainer"]
+margin_top = 80.0
+margin_right = 233.0
+margin_bottom = 95.0
+
+[node name="WIP" type="Label" parent="HUD/Top/GameInfo/VBoxContainer/HBoxContainer2"]
+margin_right = 90.0
+margin_bottom = 15.0
+custom_fonts/font = SubResource( 9 )
+text = "Get Shit Done!"
+
+[node name="WorkProgress" type="TextureProgress" parent="HUD/Top/GameInfo/VBoxContainer/HBoxContainer2"]
+margin_left = 94.0
+margin_right = 233.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+value = 50.0
+texture_under = ExtResource( 9 )
+texture_over = ExtResource( 11 )
+texture_progress = ExtResource( 10 )
+tint_under = Color( 0.235294, 0.235294, 0.235294, 1 )
+tint_over = Color( 0.0784314, 0.439216, 0.392157, 1 )
+tint_progress = Color( 0.176471, 0.737255, 0.517647, 1 )
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+
+[node name="Meters" type="ColorRect" parent="HUD"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -114.0
+margin_top = -266.5
+margin_bottom = 266.5
+grow_horizontal = 0
+color = Color( 0.168627, 0.180392, 0.2, 0.784314 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Meters"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="Sanity" type="HBoxContainer" parent="HUD/Meters/VBoxContainer"]
+margin_right = 104.0
+margin_bottom = 32.0
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Meters/VBoxContainer/Sanity"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 5 )
+
+[node name="SanityMeter" type="TextureProgress" parent="HUD/Meters/VBoxContainer/Sanity"]
+margin_left = 36.0
+margin_top = 12.0
+margin_right = 104.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+texture_under = ExtResource( 9 )
+texture_over = ExtResource( 11 )
+texture_progress = ExtResource( 10 )
+tint_under = Color( 0.235294, 0.235294, 0.235294, 1 )
+tint_over = Color( 0.713726, 0.184314, 0.376471, 1 )
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Meters/VBoxContainer"]
+margin_top = 36.0
+margin_right = 104.0
+margin_bottom = 517.0
+size_flags_vertical = 3
+
+[node name="Love" type="VBoxContainer" parent="HUD/Meters/VBoxContainer/HBoxContainer"]
+margin_right = 32.0
+margin_bottom = 481.0
+alignment = 2
+
+[node name="LoveMeter" type="TextureProgress" parent="HUD/Meters/VBoxContainer/HBoxContainer/Love"]
+margin_left = 12.0
+margin_right = 20.0
+margin_bottom = 445.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+value = 50.0
+texture_under = ExtResource( 9 )
+texture_over = ExtResource( 11 )
+texture_progress = ExtResource( 10 )
+fill_mode = 3
+tint_under = Color( 0.235294, 0.235294, 0.235294, 1 )
+tint_over = Color( 0.65098, 0, 0.329412, 1 )
+tint_progress = Color( 0.796078, 0.396078, 0.568627, 1 )
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Meters/VBoxContainer/HBoxContainer/Love"]
+margin_top = 449.0
+margin_right = 32.0
+margin_bottom = 481.0
+texture = SubResource( 6 )
+
+[node name="Food" type="VBoxContainer" parent="HUD/Meters/VBoxContainer/HBoxContainer"]
+margin_left = 36.0
+margin_right = 68.0
+margin_bottom = 481.0
+alignment = 2
+
+[node name="FoodMeter" type="TextureProgress" parent="HUD/Meters/VBoxContainer/HBoxContainer/Food"]
+margin_left = 12.0
+margin_right = 20.0
+margin_bottom = 445.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+value = 50.0
+texture_under = ExtResource( 9 )
+texture_over = ExtResource( 11 )
+texture_progress = ExtResource( 10 )
+fill_mode = 3
+tint_under = Color( 0.235294, 0.235294, 0.235294, 1 )
+tint_over = Color( 0.0784314, 0.423529, 0.584314, 1 )
+tint_progress = Color( 0.521569, 0.878431, 0.996078, 1 )
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Meters/VBoxContainer/HBoxContainer/Food"]
+margin_top = 449.0
+margin_right = 32.0
+margin_bottom = 481.0
+texture = SubResource( 7 )
+
+[node name="Poop" type="VBoxContainer" parent="HUD/Meters/VBoxContainer/HBoxContainer"]
+margin_left = 72.0
+margin_right = 104.0
+margin_bottom = 481.0
+alignment = 2
+
+[node name="PoopMeter" type="TextureProgress" parent="HUD/Meters/VBoxContainer/HBoxContainer/Poop"]
+margin_left = 12.0
+margin_right = 20.0
+margin_bottom = 445.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+value = 50.0
+texture_under = ExtResource( 9 )
+texture_over = ExtResource( 11 )
+texture_progress = ExtResource( 10 )
+fill_mode = 3
+tint_under = Color( 0.235294, 0.235294, 0.235294, 1 )
+tint_over = Color( 0.592157, 0.290196, 0.0352941, 1 )
+tint_progress = Color( 1, 0.733333, 0.337255, 1 )
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Meters/VBoxContainer/HBoxContainer/Poop"]
+margin_top = 449.0
+margin_right = 32.0
+margin_bottom = 481.0
+texture = SubResource( 8 )
+
+[node name="Meow" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -98.0
+margin_top = -35.0
+margin_right = 98.0
+margin_bottom = 35.0
+rect_pivot_offset = Vector2( 98, 35 )
+texture = ExtResource( 3 )
 script = ExtResource( 2 )
