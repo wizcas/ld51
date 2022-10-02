@@ -9,6 +9,7 @@ public abstract class Creature : KinematicBody2D
   protected Vector2 _velocity;
   protected bool _isNavigating;
   protected bool _isBusy;
+  protected bool _isFrozen;
 
   private Vector2 _forceDestination;
   #endregion
@@ -22,6 +23,7 @@ public abstract class Creature : KinematicBody2D
   public override void _PhysicsProcess(float delta)
   {
     base._PhysicsProcess(delta);
+    if (_isFrozen) return;
 
     if (_isNavigating && !_isBusy)
     {

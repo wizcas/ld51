@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Godot;
 
@@ -16,9 +17,12 @@ public class Player : Creature
   #endregion
 
   #region Fields & Properties
+  [Export] public float FreezeTime = .5f;
+
   public Action CurrentAction;
   private POI _poi;
   public SanitySystem Sanity { get; private set; }
+  public Inventory Inventory { get; private set; }
   #endregion
 
   #region Hooks
@@ -33,6 +37,7 @@ public class Player : Creature
   {
     base._Ready();
     Sanity = GetNode<SanitySystem>("SanitySystem");
+    Inventory = GetNode<Inventory>("Inventory");
   }
 
   public override void _UnhandledInput(InputEvent e)
@@ -72,6 +77,13 @@ public class Player : Creature
     Stop();
     ForceMoveTo(poi.GetDestination(this));
     await Task.CompletedTask;
+  }
+
+  private async void OnPetShouting(Pet pet)
+  {
+    _isFrozen = true;
+    await Task.Delay(TimeSpan.FromSeconds(FreezeTime));
+    _isFrozen = false;
   }
 
   #endregion

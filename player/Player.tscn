@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/poc-man.png" type="Texture" id=1]
 [ext_resource path="res://player/Player.cs" type="Script" id=2]
 [ext_resource path="res://global/CameraShake.cs" type="Script" id=3]
 [ext_resource path="res://player/SanitySystem.cs" type="Script" id=4]
+[ext_resource path="res://player/Inventory.cs" type="Script" id=5]
 
 [sub_resource type="CircleShape2D" id=7]
 radius = 4.12311
@@ -44,3 +45,6 @@ avoidance_enabled = true
 
 [node name="SanitySystem" type="Node" parent="."]
 script = ExtResource( 4 )
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource( 5 )

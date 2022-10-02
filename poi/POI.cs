@@ -17,6 +17,9 @@ public class POI : Node2D
   [Export] public bool IsForPet = true;
   protected Node2D _petAttach;
   protected Node2D _slaveAttach;
+
+  protected virtual bool CanPlayerUse => true;
+  protected virtual bool CanPetUse => true;
   #endregion
 
   #region Hooks
@@ -66,12 +69,12 @@ public class POI : Node2D
     if (body is Creature creature)
     {
       var tasks = new List<Task>();
-      if (body is Player player && IsForPlayer)
+      if (body is Player player && IsForPlayer && CanPlayerUse)
       {
         tasks.Add(PlayerEnter(player));
         tasks.Add(player.Interact(this));
       }
-      else if (body is Pet pet && IsForPet)
+      else if (body is Pet pet && IsForPet && CanPetUse)
       {
         tasks.Add(PetEnter(pet));
         tasks.Add(pet.Interact(this));
