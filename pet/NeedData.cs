@@ -9,6 +9,7 @@ public class NeedData
   public int Value;
   public float Rate;
   public int Increment;
+  public float BoostChance;
 
   private float _nextTickMs;
 
@@ -27,6 +28,10 @@ public class NeedData
     if (OS.GetTicksMsec() > _nextTickMs)
     {
       Value += Increment;
+      if (GD.Randf() < BoostChance)
+      {
+        Value += Increment * 10;
+      }
       UpdateNextTick();
       GD.Print($"[{Name}] => {Value}");
     }

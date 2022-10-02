@@ -12,7 +12,7 @@ public class NeedSystem : Node
 
   private List<NeedData> _needs = new List<NeedData>{
     new NeedData(NeedType.Hunger){Rate=3},
-    new NeedData(NeedType.Love){Rate=2},
+    new NeedData(NeedType.Love){Rate=2,BoostChance=.7f},
     new NeedData(NeedType.Defecation){Rate=3,Increment=10},
   };
   private Pet _pet;
