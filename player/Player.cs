@@ -90,9 +90,16 @@ public class Player : Creature
 
   private async void OnPetShouting(Pet pet)
   {
-    Freeze(true);
-    await Task.Delay(TimeSpan.FromSeconds(FreezeTime));
-    Freeze(false);
+    if (CurrentAction == Action.Sleeping)
+    {
+      ForceMoveTo(GlobalPosition + Vector2.Right * 16);
+    }
+    else
+    {
+      Freeze(true);
+      await Task.Delay(TimeSpan.FromSeconds(FreezeTime));
+      Freeze(false);
+    }
   }
 
   #endregion
