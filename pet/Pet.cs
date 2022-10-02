@@ -36,7 +36,7 @@ public class Pet : Creature
   public override void _Process(float delta)
   {
     base._Process(delta);
-    if (_wanderingArea != null && !_isNavigating && !_isFrozen && !_isBusy && OS.GetTicksMsec() > _nextActionTime)
+    if (_wanderingArea != null && !_isNavigating && !_isFrozen && !IsBusy && OS.GetTicksMsec() > _nextActionTime)
     {
       var location = _wanderingArea.GetRandomLocation();
       if (location.HasValue)
@@ -78,12 +78,12 @@ public class Pet : Creature
   }
   public async override Task Interact(POI poi)
   {
-    _isBusy = true;
+    IsBusy = true;
     Stop();
     ForceMoveTo(poi.GetDestination(this));
     await Task.Delay(TimeSpan.FromSeconds(poi.WorkTime));
     CancelForceMove();
-    _isBusy = false;
+    IsBusy = false;
   }
   public async Task Disappoint()
   {
@@ -96,12 +96,12 @@ public class Pet : Creature
   }
   public async Task Shout()
   {
-    _isBusy = true;
+    IsBusy = true;
     Stop();
     EmitSignal(nameof(Shouting), this);
     await Task.Delay(TimeSpan.FromSeconds(ShoutTime));
     Think();
-    _isBusy = false;
+    IsBusy = false;
   }
   public override void Stop()
   {

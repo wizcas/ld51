@@ -22,9 +22,9 @@ public class NeedSystem : Node
   public NeedData MostWanted { get; private set; }
 
   private List<NeedData> _needs = new List<NeedData>{
-    new NeedData(NeedType.Hunger){Increment=5,BoostChance=.3f,HappinessDamage=10},
-    new NeedData(NeedType.Love){Increment=10,BoostChance=.7f,HappinessDamage=5},
-    new NeedData(NeedType.Defecation){Increment=3,BoostChance=.2f,HappinessDamage=20},
+    new NeedData(NeedType.Hunger){Increment=5,BoostChance=.3f,HappinessDamage=20},
+    new NeedData(NeedType.Love){Increment=10,BoostChance=.7f,HappinessDamage=10},
+    new NeedData(NeedType.Defecation){Increment=3,BoostChance=.2f,HappinessDamage=30},
   };
   private Pet _pet;
 

@@ -18,8 +18,8 @@ public class POI : Node2D
   protected Node2D _petAttach;
   protected Node2D _slaveAttach;
 
-  protected virtual bool CanPlayerUse => true;
-  protected virtual bool CanPetUse => true;
+  protected virtual bool CanPlayerUse(Player player) => true;
+  protected virtual bool CanPetUse(Pet pet) => true;
   #endregion
 
   #region Hooks
@@ -60,7 +60,7 @@ public class POI : Node2D
       if (mouseEvent.IsPressed() && mouseEvent.ButtonIndex == (int)ButtonList.Left)
       {
         Global.Instance.Arrow.ShowAt(GlobalPosition);
-        Global.Instance.Player.SetTargetPOI(this);
+        Global.Instance.Player.AddPOI(this);
       }
     }
   }
@@ -71,7 +71,7 @@ public class POI : Node2D
       var tasks = new List<Task>();
       if (body is Player player && IsForPlayer && player.IsCurrentPOI(this))
       {
-        if (CanPlayerUse)
+        if (CanPlayerUse(player))
         {
           tasks.Add(PlayerEnter(player));
           tasks.Add(player.Interact(this));
@@ -80,12 +80,12 @@ public class POI : Node2D
         {
           // reset player's POI state if it's not usable
           // so that player can continue move.
-          player.SetTargetPOI(null);
+          player.ForgetPOI(this);
         }
       }
       else if (body is Pet pet && IsForPet)
       {
-        if (CanPetUse)
+        if (CanPetUse(pet))
         {
           tasks.Add(PetEnter(pet));
           tasks.Add(pet.Interact(this));

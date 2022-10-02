@@ -8,7 +8,12 @@ public abstract class Creature : KinematicBody2D
   protected NavigationAgent2D _navAgent;
   protected Vector2 _velocity;
   protected bool _isNavigating;
-  protected bool _isBusy;
+  private bool _isBusy;
+  protected virtual bool IsBusy
+  {
+    get { return _isBusy; }
+    set { _isBusy = value; }
+  }
   protected bool _isFrozen;
 
   private Vector2 _forceDestination;
@@ -25,7 +30,7 @@ public abstract class Creature : KinematicBody2D
     base._PhysicsProcess(delta);
     if (_isFrozen) return;
 
-    if (_isNavigating && !_isBusy)
+    if (_isNavigating && !IsBusy)
     {
       if (!_navAgent.IsTargetReachable())
       {

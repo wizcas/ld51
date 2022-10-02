@@ -4,7 +4,7 @@ public class Global : Node
 {
   public static Global Instance => ((SceneTree)Engine.GetMainLoop()).Root.GetNode<Global>("Global");
 
-  [Export] public float TotalTime = 600;
+  [Export] public float TotalTime = 300;
 
   public float TimeLeft;
 

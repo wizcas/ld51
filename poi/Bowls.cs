@@ -20,8 +20,8 @@ public class Bowls : PetPOI
 
   private Food _food;
 
-  protected override bool CanPlayerUse => Fullness < MaxFullness;
-  protected override bool CanPetUse => Fullness > 0;
+  protected override bool CanPlayerUse(Player player) => Fullness < MaxFullness && player.Inventory.Food != null;
+  protected override bool CanPetUse(Pet pet) => Fullness > 0;
   private Sprite Sprite => GetNode<Sprite>("Sprite");
 
   protected override async Task PetEnter(Pet pet)
@@ -43,6 +43,6 @@ public class Bowls : PetPOI
 
     Fullness = MaxFullness;
     _food = player.Inventory.Food;
-    player.Inventory.Food = null;
+    player.Inventory.ClearFood();
   }
 }

@@ -17,8 +17,8 @@ public class LitterBox : PetPOI
     }
   }
 
-  protected override bool CanPlayerUse => Fullness > 0;
-  protected override bool CanPetUse => Fullness < MaxFullness;
+  protected override bool CanPlayerUse(Player player) => Fullness > 0;
+  protected override bool CanPetUse(Pet pet) => Fullness < MaxFullness;
 
   private Sprite Sprite => GetNode<Sprite>("Sprite");
 

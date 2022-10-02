@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 
@@ -21,8 +22,26 @@ public class Player : Creature
 
   public Action CurrentAction;
   private POI _poi;
+  private List<POI> _poiQueue = new List<POI>();
+  private Node2D _busyCloud;
   public SanitySystem Sanity { get; private set; }
   public Inventory Inventory { get; private set; }
+  protected override bool IsBusy
+  {
+    get => base.IsBusy;
+    set
+    {
+      base.IsBusy = value;
+      if (value)
+      {
+        _busyCloud.Show();
+      }
+      else
+      {
+        _busyCloud.Hide();
+      }
+    }
+  }
   #endregion
 
   #region Hooks
@@ -38,6 +57,8 @@ public class Player : Creature
     base._Ready();
     Sanity = GetNode<SanitySystem>("SanitySystem");
     Inventory = GetNode<Inventory>("Inventory");
+    _busyCloud = GetNode<Node2D>("BusyCloud");
+    IsBusy = false;
     Global.Instance.Pet.Connect(nameof(Pet.Shouting), this, nameof(OnPetShouting));
   }
 
@@ -47,7 +68,7 @@ public class Player : Creature
     {
       if (mouseEvent.IsPressed() && mouseEvent.ButtonIndex == (int)ButtonList.Left)
       {
-        _poi = null;
+        ClearAllPOIs();
         CancelForceMove();
         SetNavTarget(GetGlobalMousePosition());
       }
@@ -58,6 +79,7 @@ public class Player : Creature
   public override void _Process(float delta)
   {
     base._Process(delta);
+    GotoNextPOI();
     if (!_isNavigating)
     {
       Global.Instance.Arrow.Hide();
@@ -68,24 +90,52 @@ public class Player : Creature
 
   #region Methods
 
-  public void SetTargetPOI(POI poi)
+  public void AddPOI(POI poi)
   {
-    _poi = poi;
-    if (poi != null) SetNavTarget(poi.GetDestination(this));
+    if (poi == _poi) return;
+    var index = _poiQueue.IndexOf(poi);
+    if (index < 0)
+    {
+      _poiQueue.Add(poi);
+    }
+  }
+  public void ForgetPOI(POI poi)
+  {
+    if (poi == _poi) _poi = null;
+    if (_poiQueue.Contains(poi))
+    {
+      _poiQueue.Remove(poi);
+    }
+  }
+  public void ClearAllPOIs()
+  {
+    _poi = null;
+    _poiQueue.Clear();
   }
 
-  public async override Task Interact(POI poi)
+  private void GotoNextPOI()
   {
-    Stop();
-    ForceMoveTo(poi.GetDestination(this));
-    await Task.Delay(TimeSpan.FromSeconds(poi.WorkTime));
-    _poi = null;
-    GD.PrintErr("poi reset");
+    if (_poi != null) return; // already working on a POI. Go to next once it's done.
+    if (_poiQueue.Count == 0) return;
+    _poi = _poiQueue[0];
+    _poiQueue.RemoveAt(0);
+    SetNavTarget(_poi.GetDestination(this));
   }
 
   public bool IsCurrentPOI(POI poi)
   {
     return poi == _poi;
+  }
+
+  public async override Task Interact(POI poi)
+  {
+    IsBusy = true;
+    Stop();
+    ForceMoveTo(poi.GetDestination(this));
+    await Task.Delay(TimeSpan.FromSeconds(poi.WorkTime));
+    _poi = null;
+    GD.PrintErr("poi reset");
+    IsBusy = false;
   }
 
   private async void OnPetShouting(Pet pet)
