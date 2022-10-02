@@ -25,7 +25,7 @@ public class POI : Node2D
   #region Hooks
   public override void _Ready()
   {
-    /* Connect("input_event", this,nameof(OnInputEvent)); */
+    Connect("input_event", this, nameof(OnInputEvent));
     this.Connect("body_entered", this, nameof(OnBodyEntered));
     this.Connect("body_exited", this, nameof(OnBodyExited));
     _petAttach = GetNodeOrNull<Node2D>("PetAttach");
@@ -60,8 +60,7 @@ public class POI : Node2D
       if (mouseEvent.IsPressed() && mouseEvent.ButtonIndex == (int)ButtonList.Left)
       {
         Global.Instance.Arrow.ShowAt(GlobalPosition);
-        GD.Print("POI clicked: ", Name);
-        GetTree().SetInputAsHandled();
+        Global.Instance.Player.SetTargetPOI(this);
       }
     }
   }
@@ -70,10 +69,19 @@ public class POI : Node2D
     if (body is Creature creature)
     {
       var tasks = new List<Task>();
-      if (body is Player player && IsForPlayer && CanPlayerUse)
+      if (body is Player player && IsForPlayer && player.IsCurrentPOI(this))
       {
-        tasks.Add(PlayerEnter(player));
-        tasks.Add(player.Interact(this));
+        if (CanPlayerUse)
+        {
+          tasks.Add(PlayerEnter(player));
+          tasks.Add(player.Interact(this));
+        }
+        else
+        {
+          // reset player's POI state if it's not usable
+          // so that player can continue move.
+          player.SetTargetPOI(null);
+        }
       }
       else if (body is Pet pet && IsForPet && CanPetUse)
       {

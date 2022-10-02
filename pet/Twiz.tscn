@@ -1,12 +1,25 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/twiz.png" type="Texture" id=1]
 [ext_resource path="res://pet/Pet.cs" type="Script" id=2]
 [ext_resource path="res://pet/NeedSystem.cs" type="Script" id=3]
+[ext_resource path="res://poi/Pat.cs" type="Script" id=4]
+[ext_resource path="res://assets/icons.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=12]
 radius = 2.0
 height = 12.0
+
+[sub_resource type="CircleShape2D" id=13]
+radius = 12.0
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 96, 32, 32 )
+
+[sub_resource type="Gradient" id=15]
+offsets = PoolRealArray( 0, 0.681159, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="Twiz" type="KinematicBody2D"]
 position = Vector2( 152, 119 )
@@ -32,3 +45,28 @@ script = ExtResource( 3 )
 path_desired_distance = 8.0
 target_desired_distance = 8.0
 avoidance_enabled = true
+
+[node name="Pat" type="Area2D" parent="."]
+script = ExtResource( 4 )
+IsForPet = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pat"]
+position = Vector2( 0, -4 )
+shape = SubResource( 13 )
+
+[node name="LoveFX" type="CPUParticles2D" parent="."]
+position = Vector2( 0, -9 )
+emitting = false
+lifetime = 0.5
+randomness = 0.62
+texture = SubResource( 14 )
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2( 0, -1 )
+spread = 64.0
+gravity = Vector2( 0, -98 )
+initial_velocity = 32.0
+initial_velocity_random = 0.2
+scale_amount = 0.1
+scale_amount_random = 0.2
+color_ramp = SubResource( 15 )

@@ -43,5 +43,6 @@ public class Bowls : PetPOI
 
     Fullness = MaxFullness;
     _food = player.Inventory.Food;
+    player.Inventory.Food = null;
   }
 }

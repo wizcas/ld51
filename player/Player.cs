@@ -47,6 +47,7 @@ public class Player : Creature
     {
       if (mouseEvent.IsPressed() && mouseEvent.ButtonIndex == (int)ButtonList.Left)
       {
+        _poi = null;
         CancelForceMove();
         SetNavTarget(GetGlobalMousePosition());
       }
@@ -70,21 +71,28 @@ public class Player : Creature
   public void SetTargetPOI(POI poi)
   {
     _poi = poi;
-    SetNavTarget(poi.GetDestination(this));
+    if (poi != null) SetNavTarget(poi.GetDestination(this));
   }
 
   public async override Task Interact(POI poi)
   {
     Stop();
     ForceMoveTo(poi.GetDestination(this));
-    await Task.CompletedTask;
+    await Task.Delay(TimeSpan.FromSeconds(poi.WorkTime));
+    _poi = null;
+    GD.PrintErr("poi reset");
+  }
+
+  public bool IsCurrentPOI(POI poi)
+  {
+    return poi == _poi;
   }
 
   private async void OnPetShouting(Pet pet)
   {
-    _isFrozen = true;
+    Freeze(true);
     await Task.Delay(TimeSpan.FromSeconds(FreezeTime));
-    _isFrozen = false;
+    Freeze(false);
   }
 
   #endregion

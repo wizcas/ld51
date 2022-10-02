@@ -81,6 +81,11 @@ public abstract class Creature : KinematicBody2D
     _forceDestination = Vector2.Zero;
   }
 
+  public void Freeze(bool on)
+  {
+    _isFrozen = on;
+  }
+
   public abstract Task Interact(POI poi);
 
   #endregion

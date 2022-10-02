@@ -12,6 +12,7 @@ public class Pet : Creature
   public NeedSystem Needs { get; private set; }
   private WanderingArea _wanderingArea;
   private float _nextActionTime;
+  private CPUParticles2D _loveFX;
   #endregion
 
   #region Hooks
@@ -24,6 +25,7 @@ public class Pet : Creature
   {
     base._Ready();
     Needs = GetNode<NeedSystem>("NeedSystem");
+    _loveFX = GetNode<CPUParticles2D>("LoveFX");
     if (!WanderingAreaNode.IsEmpty())
     {
       _wanderingArea = GetNode<WanderingArea>(WanderingAreaNode);
@@ -78,7 +80,7 @@ public class Pet : Creature
     _isBusy = true;
     Stop();
     ForceMoveTo(poi.GetDestination(this));
-    await ToSignal(GetTree().CreateTimer(2), "timeout");
+    await Task.Delay(TimeSpan.FromSeconds(poi.WorkTime));
     CancelForceMove();
     _isBusy = false;
   }
@@ -101,6 +103,11 @@ public class Pet : Creature
   {
     if (_isNavigating) return;
     _nextActionTime = OS.GetTicksMsec() + 1000;
+  }
+
+  public void Love(bool on)
+  {
+    _loveFX.Emitting = on;
   }
   #endregion
 }
