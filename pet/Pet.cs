@@ -37,6 +37,13 @@ public class Pet : Creature
       _wanderingArea = GetNode<WanderingArea>(WanderingAreaNode);
     }
   }
+  public override void OnGameReset()
+  {
+    base.OnGameReset();
+    _loveFX.Emitting = false;
+    _nextActionTime = 0;
+    GlobalPosition = Global.Instance.PetSpawn;
+  }
 
   public override void _Process(float delta)
   {

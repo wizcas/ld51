@@ -24,6 +24,15 @@ public abstract class Creature : KinematicBody2D
   {
     base._Ready();
     _navAgent = GetNode<NavigationAgent2D>("NavAgent");
+    Global.Instance.Connect(nameof(Global.GameReset), this, nameof(OnGameReset));
+  }
+  public virtual void OnGameReset()
+  {
+    IsBusy = false;
+    _isFrozen = false;
+    _isNavigating = false;
+    _velocity = Vector2.Zero;
+    _forceDestination = Vector2.Zero;
   }
   public override void _PhysicsProcess(float delta)
   {

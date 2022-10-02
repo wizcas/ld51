@@ -62,9 +62,17 @@ public class Player : Creature
     Inventory = GetNode<Inventory>("Inventory");
     _busyCloud = GetNode<Node2D>("BusyCloud");
     _zzz = GetNode<CPUParticles2D>("Zzz");
+    Global.Instance.Pet.Connect(nameof(Pet.Shouting), this, nameof(OnPetShouting));
     IsBusy = false;
     _zzz.Emitting = false;
-    Global.Instance.Pet.Connect(nameof(Pet.Shouting), this, nameof(OnPetShouting));
+  }
+  public override void OnGameReset()
+  {
+    base.OnGameReset();
+    _zzz.Emitting = false;
+    ClearAllPOIs();
+    ToggleBusyCloud(false);
+    GlobalPosition = Global.Instance.PlayerSpawn;
   }
 
   public override void _UnhandledInput(InputEvent e)

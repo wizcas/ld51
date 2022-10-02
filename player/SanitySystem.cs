@@ -23,6 +23,7 @@ public class SanitySystem : Node
     base._Ready();
     _player = GetParent<Player>();
     Global.Instance.Pet.Connect(nameof(Pet.Shouting), this, nameof(OnPetShouting));
+    Global.Instance.Connect(nameof(Global.GameReset), this, nameof(OnGameReset));
     StartGame();
   }
   public override void _Process(float delta)
@@ -65,6 +66,10 @@ public class SanitySystem : Node
   public void OnPetShouting(Pet pet)
   {
     Sanity -= SanityShoutLossRate;
+  }
+  public void OnGameReset()
+  {
+    StartGame();
   }
 
   #endregion

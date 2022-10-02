@@ -28,6 +28,11 @@ public class Bowls : PetPOI
   public override void _Ready()
   {
     base._Ready();
+    Global.Instance.Connect(nameof(Global.GameReset), this, nameof(OnGameReset));
+    Fullness = 0;
+  }
+  public void OnGameReset()
+  {
     Fullness = 0;
   }
 

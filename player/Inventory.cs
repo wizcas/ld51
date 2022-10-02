@@ -12,6 +12,11 @@ public class Inventory : Node2D
     _player = GetParent<Player>();
     _foodItem = GetNode<Node2D>("Food");
     _foodItem.Hide();
+    Global.Instance.Connect(nameof(Global.GameReset), this, nameof(OnGameReset));
+  }
+  public void OnGameReset()
+  {
+    ClearFood();
   }
 
   public void TakeFood(Food food)

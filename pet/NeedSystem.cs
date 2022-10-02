@@ -32,6 +32,7 @@ public class NeedSystem : Node
   {
     base._Ready();
     _pet = GetParent<Pet>();
+    Global.Instance.Connect(nameof(Global.GameReset), this, nameof(OnGameReset));
     Global.Instance.TenSec.Connect("timeout", this, nameof(OnTenSecTimeOut));
     Happiness = 100;
   }
@@ -95,6 +96,14 @@ public class NeedSystem : Node
   public NeedData GetNeed(NeedType type)
   {
     return _needs.FirstOrDefault(n => n.Type == type);
+  }
+  public void OnGameReset()
+  {
+    Happiness = 100;
+    foreach (var need in _needs)
+    {
+      need.Clear();
+    }
   }
 }
 

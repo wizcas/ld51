@@ -107,7 +107,7 @@ script = ExtResource( 5 )
 position = Vector2( 0, -3 )
 frames = SubResource( 16 )
 animation = "play"
-frame = 3
+frame = 6
 playing = true
 
 [node name="Zzz" type="CPUParticles2D" parent="."]

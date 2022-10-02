@@ -17,7 +17,6 @@ public class GlobalTimer : Timer
   public override void _Ready()
   {
     Connect("timeout", this, nameof(OnSelfTimeOut));
-    Start();
   }
   public override void _Process(float delta)
   {
