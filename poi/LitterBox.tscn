@@ -12,8 +12,8 @@
 atlas = ExtResource( 2 )
 region = Rect2( 48, 32, 16, 16 )
 
-[sub_resource type="CircleShape2D" id=11]
-radius = 16.0
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 13.5, 10 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 7 )
@@ -44,10 +44,11 @@ position = Vector2( 0, 1 )
 position = Vector2( 0, -8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 5 )
-shape = SubResource( 11 )
+position = Vector2( 0.5, 0 )
+shape = SubResource( 14 )
 
 [node name="Warn" type="Node2D" parent="."]
+visible = false
 position = Vector2( 0, -1 )
 z_index = 5
 
