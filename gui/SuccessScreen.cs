@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public class SuccessScreen : Control
+public class SuccessScreen : EndScreen
 {
   [Export] NodePath TimeNode;
   private Label _timeLabel;

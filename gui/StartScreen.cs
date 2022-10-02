@@ -17,6 +17,16 @@ public class StartScreen : ColorRect
   {
     GetNode<Button>("StartButton").Connect("pressed", this, nameof(OnStartButtonPressed));
   }
+
+  public override void _UnhandledInput(InputEvent @event)
+  {
+    base._UnhandledInput(@event);
+    if (!Visible) return;
+    if (@event.IsActionPressed("ui_accept"))
+    {
+      OnStartButtonPressed();
+    }
+  }
   #endregion
 
   #region Methods

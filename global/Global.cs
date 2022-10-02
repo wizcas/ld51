@@ -48,7 +48,6 @@ public class Global : Node
       endScreen.GetNodeOrNull("RestartButton")?.Connect("pressed", this, nameof(Restart));
     }
 
-
     GetTree().Paused = true;
     HideEndScreens();
     StartScreen.Show();
