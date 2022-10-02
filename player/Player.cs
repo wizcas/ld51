@@ -38,6 +38,7 @@ public class Player : Creature
     base._Ready();
     Sanity = GetNode<SanitySystem>("SanitySystem");
     Inventory = GetNode<Inventory>("Inventory");
+    Global.Instance.Pet.Connect(nameof(Pet.Shouting), this, nameof(OnPetShouting));
   }
 
   public override void _UnhandledInput(InputEvent e)
