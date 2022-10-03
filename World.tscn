@@ -634,7 +634,7 @@ atlas = ExtResource( 5 )
 region = Rect2( 96, 48, 16, 16 )
 
 [sub_resource type="CircleShape2D" id=70]
-radius = 17.0294
+radius = 15.0333
 
 [sub_resource type="AtlasTexture" id=107]
 atlas = ExtResource( 18 )
@@ -772,7 +772,7 @@ texture = SubResource( 64 )
 position = Vector2( 0, 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="walls/Bed"]
-position = Vector2( 0, 5 )
+position = Vector2( -5, 5 )
 shape = SubResource( 70 )
 
 [node name="Warn" type="Node2D" parent="walls/Bed"]
